@@ -651,7 +651,7 @@ async def main() -> None:
     async def install_menu_callback(call: CallbackQuery, state: FSMContext) -> None:
         await state.clear()
         log_callback_event(call, EVENT_INSTALL_MENU)
-        await send_text(call.message, "Выберите платформу:", reply_markup=INSTALL_MENU)
+        await send_text(call.message, "Выберите платформу: ", reply_markup=INSTALL_MENU)
         await call.answer()
 
     @router.callback_query(F.data.in_((MAIN_MENU_OPEN, INSTALL_BACK)))
