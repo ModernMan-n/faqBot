@@ -29,6 +29,43 @@ LOG_PATH = os.getenv("BOT_LOG_PATH", "bot.log")
 ANALYTICS_DB_PATH = os.getenv("ANALYTICS_DB_PATH", "analytics.sqlite")
 SUPPORT_REMINDER_SECONDS = int(os.getenv("SUPPORT_REMINDER_SECONDS", "600"))
 SUPPORT_REMINDER_MAX = int(os.getenv("SUPPORT_REMINDER_MAX", "3"))
+TEXTS_PATH = os.getenv("BOT_TEXTS_PATH", "texts.json")
+DEFAULT_LANG = os.getenv("BOT_DEFAULT_LANG", "ru").lower()
+TEXTS_EN_PATH = os.getenv("BOT_TEXTS_EN_PATH", "texts.en.json")
+TEXTS_KZ_PATH = os.getenv("BOT_TEXTS_KZ_PATH", "texts.kz.json")
+TEXTS_AZ_PATH = os.getenv("BOT_TEXTS_AZ_PATH", "texts.az.json")
+TEXTS_UZ_PATH = os.getenv("BOT_TEXTS_UZ_PATH", "texts.uz.json")
+
+
+def load_texts(path: str) -> dict:
+    with open(path, "r", encoding="utf-8") as handle:
+        return json.load(handle)
+
+
+def load_optional_texts(path: str) -> Optional[dict]:
+    if not os.path.exists(path):
+        return None
+    return load_texts(path)
+
+
+TEXTS_BY_LANG: dict[str, dict] = {"ru": load_texts(TEXTS_PATH)}
+texts_en = load_optional_texts(TEXTS_EN_PATH)
+if texts_en:
+    TEXTS_BY_LANG["en"] = texts_en
+texts_kz = load_optional_texts(TEXTS_KZ_PATH)
+if texts_kz:
+    TEXTS_BY_LANG["kz"] = texts_kz
+
+texts_az = load_optional_texts(TEXTS_AZ_PATH)
+if texts_az:
+    TEXTS_BY_LANG["az"] = texts_az
+
+texts_uz = load_optional_texts(TEXTS_UZ_PATH)
+if texts_uz:
+    TEXTS_BY_LANG["uz"] = texts_uz
+
+if DEFAULT_LANG not in TEXTS_BY_LANG:
+    DEFAULT_LANG = "ru"
 
 
 def configure_logging(log_path: str) -> None:
@@ -183,14 +220,83 @@ def build_inline_keyboard(rows: list[list[tuple[str, str]]]) -> InlineKeyboardMa
     return InlineKeyboardMarkup(inline_keyboard=buttons)
 
 
-def build_answer_menu(subject: str) -> InlineKeyboardMarkup:
+@dataclass
+class Localized:
+    texts: dict
+    menus: dict[str, InlineKeyboardMarkup]
+    answers: dict[str, Answer]
+    install_answers: dict[str, Answer]
+    subject_labels: dict[str, str]
+    messages: dict[str, str]
+
+
+def build_localized(texts: dict) -> Localized:
+    menus = {
+        "main": build_inline_keyboard(texts["menus"]["main"]),
+        "install": build_inline_keyboard(texts["menus"]["install"]),
+        "support": build_inline_keyboard(texts["menus"]["support"]),
+        "support_reminder": build_inline_keyboard(texts["menus"]["support_reminder"]),
+        "answer": build_inline_keyboard(texts["menus"]["answer"]),
+    }
+    answers = {key: Answer(**value) for key, value in texts["answers"].items()}
+    install_answers = {
+        key: Answer(**value) for key, value in texts["install_answers"].items()
+    }
+    return Localized(
+        texts=texts,
+        menus=menus,
+        answers=answers,
+        install_answers=install_answers,
+        subject_labels=texts["subject_labels"],
+        messages=texts["messages"],
+    )
+
+
+LOCALIZED_CACHE: dict[str, Localized] = {}
+USER_LANG: dict[int, str] = {}
+
+
+def detect_language_code(user) -> str:
+    if not user or not user.language_code:
+        return DEFAULT_LANG
+    code = user.language_code.lower()
+    for prefix in ("kk", "en", "ru"):
+        if code.startswith(prefix):
+            return prefix
+    return DEFAULT_LANG
+
+
+def get_user_lang(user) -> str:
+    if user and user.id in USER_LANG:
+        return USER_LANG[user.id]
+    return detect_language_code(user)
+
+
+def get_localized_by_lang(lang: str) -> Localized:
+    normalized = lang if lang in TEXTS_BY_LANG else DEFAULT_LANG
+    if normalized not in LOCALIZED_CACHE:
+        LOCALIZED_CACHE[normalized] = build_localized(TEXTS_BY_LANG[normalized])
+    return LOCALIZED_CACHE[normalized]
+
+
+def get_localized_for_user(user) -> Localized:
+    return get_localized_by_lang(get_user_lang(user))
+
+
+def build_answer_menu(localized: Localized, subject: str) -> InlineKeyboardMarkup:
     return build_inline_keyboard(
         [
             [
-                ("Помогло", f"{FEEDBACK_HELPFUL_PREFIX}{subject}"),
-                ("Не помогло", f"{FEEDBACK_UNHELPFUL_PREFIX}{subject}"),
+                (
+                    localized.messages["feedback_helpful_button"],
+                    f"{FEEDBACK_HELPFUL_PREFIX}{subject}",
+                ),
+                (
+                    localized.messages["feedback_unhelpful_button"],
+                    f"{FEEDBACK_UNHELPFUL_PREFIX}{subject}",
+                ),
             ],
-            [("Главное меню", MAIN_MENU_OPEN)],
+            [(localized.messages["back_to_menu_button"], MAIN_MENU_OPEN)],
         ]
     )
 
@@ -224,134 +330,37 @@ EVENT_SUPPORT_RESOLVED = "support_resolved"
 EVENT_FEEDBACK_HELPFUL = "feedback_helpful"
 EVENT_FEEDBACK_UNHELPFUL = "feedback_unhelpful"
 
-MAIN_MENU_ROWS = [
-    [("Не работает ни один из ключей", MAIN_KEYS)],
-    [("Как установить приложение", MAIN_INSTALL)],
-    [("Как продлить подписку", MAIN_RENEW)],
-    [("Как пригласить человека", MAIN_INVITE)],
-    [("Не нашли ответ на ваш вопрос", SUPPORT_START)],
-]
-
-INSTALL_MENU_ROWS = [
-    [("iOS", "install:ios"), ("Android", "install:android")],
-    [("Windows", "install:windows"), ("macOS", "install:macos")],
-    [("Linux", "install:linux")],
-    [("Назад", INSTALL_BACK)],
-    [("Ответ мне не подходит", SUPPORT_START)],
-]
-
-SUPPORT_MENU_ROWS = [
-    [("Отмена", SUPPORT_CANCEL)],
-]
-
-SUPPORT_REMINDER_MENU_ROWS = [
-    [("Задача решена", SUPPORT_RESOLVED)],
-    [("Отмена", SUPPORT_CANCEL)],
-]
-
-MAIN_MENU = build_inline_keyboard(MAIN_MENU_ROWS)
-INSTALL_MENU = build_inline_keyboard(INSTALL_MENU_ROWS)
-SUPPORT_MENU = build_inline_keyboard(SUPPORT_MENU_ROWS)
-SUPPORT_REMINDER_MENU = build_inline_keyboard(SUPPORT_REMINDER_MENU_ROWS)
-ANSWER_MENU = build_inline_keyboard([[("Главное меню", MAIN_MENU_OPEN)]])
-
-ANSWERS = {
-    MAIN_KEYS: Answer(
-        text=(
-            "1) Проверьте, что интернет работает без VPN.\n"
-            "2) Если проблема остаётся, запросите новый ключ у поддержки @modern_1mctech"
-        ),
-        media_path="media/faq1.png",
-        media_type="photo",
-    ),
-    MAIN_RENEW: Answer(
-        text=(
-            "Подписку можно продлить через менеджера или личный кабинет.\n"
-            "Если у вас нет ссылки на оплату, напишите в поддержку — пришлём её."
-        ),
-        media_path="media/faq2.png",
-        media_type="photo",
-    ),
-    MAIN_INVITE: Answer(
-        text=(
-            "Откройте бота @LockDown_VPN_Bbot → Главная → Пригласить друга.\n"
-            "Скопируйте ссылку-приглашение и отправьте её человеку."
-        ),
-        media_path="media/faq3.png",
-        media_type="photo",
-    ),
+CANCEL_TRIGGERS = {
+    texts["messages"]["support_cancel_trigger"].casefold()
+    for texts in TEXTS_BY_LANG.values()
+    if "messages" in texts and "support_cancel_trigger" in texts["messages"]
 }
+if not CANCEL_TRIGGERS:
+    CANCEL_TRIGGERS = {"cancel"}
 
-INSTALL_ANSWERS = {
-    "install:ios": Answer(
-        text=(
-            "1) Откройте App Store и установите приложение VPN.\n"
-            "2) Запустите приложение и добавьте ключ из письма/чата.\n"
-            "3) Включите VPN и подтвердите добавление конфигурации."
-        ),
-        media_path="media/install_ios.mp4",
-        media_type="photo",
-    ),
-    "install:android": Answer(
-        text=(
-            "1) Установите приложение из Google Play.\n"
-            "2) Импортируйте ключ и разрешите создание VPN.\n"
-            "3) Включите VPN в приложении."
-        ),
-        media_path="media/install_android.mp4",
-        media_type="photo",
-    ),
-    "install:windows": Answer(
-        text=(
-            "1) Установите приложение для Windows.\n"
-            "2) Добавьте ключ через кнопку Import.\n"
-            "3) Подключитесь и проверьте статус."
-        ),
-        media_path="media/install_windows.mp4",
-        media_type="photo",
-    ),
-    "install:macos": Answer(
-        text=(
-            "1) Установите приложение для macOS.\n"
-            "2) Импортируйте ключ и разрешите системное расширение, если нужно.\n"
-            "3) Включите VPN и проверьте соединение."
-        ),
-        media_path="media/install_macos.mp4",
-        media_type="photo",
-    ),
-    "install:linux": Answer(
-        text=(
-            "1) Установите клиент согласно вашей системе.\n"
-            "2) Импортируйте ключ через CLI или GUI.\n"
-            "3) Подключитесь и проверьте внешний IP."
-        ),
-        media_path="media/install_linux.mp4",
-        media_type="photo",
-    ),
-}
+ANSWER_KEYS = set(TEXTS_BY_LANG[DEFAULT_LANG]["answers"].keys())
+INSTALL_ANSWER_KEYS = set(TEXTS_BY_LANG[DEFAULT_LANG]["install_answers"].keys())
 
-SUBJECT_LABELS = {
-    MAIN_KEYS: "Не работает ни один из ключей",
-    MAIN_RENEW: "Как продлить подписку",
-    MAIN_INVITE: "Как пригласить человека",
-    "install:ios": "iOS",
-    "install:android": "Android",
-    "install:windows": "Windows",
-    "install:macos": "macOS",
-    "install:linux": "Linux",
-}
+LANG_SELECT_PREFIX = "lang:"
+LANGUAGE_MENU_ROWS = [
+    [("Русский", f"{LANG_SELECT_PREFIX}ru"), ("Қазақша", f"{LANG_SELECT_PREFIX}kk")],
+    [("English", f"{LANG_SELECT_PREFIX}en")],
+]
+LANGUAGE_MENU = build_inline_keyboard(LANGUAGE_MENU_ROWS)
+LANGUAGE_PROMPT = "Выберите язык / Choose language / Тілді таңдаңыз / Tilni tanlang / Dili seçin"
 
 
-def subject_label(subject: Optional[str]) -> str:
+def subject_label(localized: Localized, subject: Optional[str]) -> str:
     if not subject:
-        return "—"
-    return SUBJECT_LABELS.get(subject, subject)
+        return localized.messages["unknown_subject"]
+    return localized.subject_labels.get(subject, subject)
 
 
 LAST_BOT_MESSAGE_ID: dict[int, int] = {}
 SUPPORT_PENDING: set[tuple[int, int]] = set()
 SUPPORT_REMINDER_TASKS: dict[tuple[int, int], asyncio.Task] = {}
 SUPPORT_REMINDER_COUNTS: dict[tuple[int, int], int] = {}
+SUPPORT_LANGS: dict[tuple[int, int], str] = {}
 
 
 async def cleanup_previous_message(bot: Bot, chat_id: int) -> None:
@@ -375,7 +384,7 @@ async def send_text(
 ) -> Message:
     if message.chat:
         await cleanup_previous_message(message.bot, message.chat.id)
-    sent = await message.answer(text, reply_markup=reply_markup)
+    sent = await message.answer(text, reply_markup=reply_markup, parse_mode="HTML")
     if message.chat:
         LAST_BOT_MESSAGE_ID[message.chat.id] = sent.message_id
     return sent
@@ -388,7 +397,7 @@ async def send_text_by_chat(
     reply_markup: Optional[InlineKeyboardMarkup] = None,
 ) -> None:
     await cleanup_previous_message(bot, chat_id)
-    sent = await bot.send_message(chat_id, text, reply_markup=reply_markup)
+    sent = await bot.send_message(chat_id, text, reply_markup=reply_markup, parse_mode="HTML")
     LAST_BOT_MESSAGE_ID[chat_id] = sent.message_id
 
 
@@ -432,12 +441,16 @@ def clear_support_pending(chat_id: int, user_id: int) -> None:
     key = support_key(chat_id, user_id)
     SUPPORT_PENDING.discard(key)
     SUPPORT_REMINDER_COUNTS.pop(key, None)
+    SUPPORT_LANGS.pop(key, None)
     cancel_support_reminder(key)
 
 
-async def schedule_support_reminder(bot: Bot, chat_id: int, user_id: int) -> None:
+async def schedule_support_reminder(
+    bot: Bot, chat_id: int, user_id: int, lang: str
+) -> None:
     key = support_key(chat_id, user_id)
     SUPPORT_PENDING.add(key)
+    SUPPORT_LANGS[key] = lang
     cancel_support_reminder(key)
     if key not in SUPPORT_REMINDER_COUNTS:
         SUPPORT_REMINDER_COUNTS[key] = 0
@@ -459,6 +472,8 @@ async def run_support_reminder(bot: Bot, chat_id: int, user_id: int) -> None:
             if count >= SUPPORT_REMINDER_MAX:
                 return
             SUPPORT_REMINDER_COUNTS[key] = count + 1
+            lang = SUPPORT_LANGS.get(key, DEFAULT_LANG)
+            localized = get_localized_by_lang(lang)
             record_event(
                 ANALYTICS_DB_PATH,
                 EVENT_SUPPORT_REMINDER,
@@ -469,8 +484,8 @@ async def run_support_reminder(bot: Bot, chat_id: int, user_id: int) -> None:
             await send_text_by_chat(
                 bot,
                 chat_id,
-                "Если нужна помощь, опишите проблему одним сообщением — мы передадим её в поддержку.",
-                reply_markup=SUPPORT_REMINDER_MENU,
+                localized.messages["support_reminder"],
+                reply_markup=localized.menus["support_reminder"],
             )
     except asyncio.CancelledError:
         return
@@ -480,40 +495,61 @@ async def run_support_reminder(bot: Bot, chat_id: int, user_id: int) -> None:
         SUPPORT_REMINDER_TASKS.pop(support_key(chat_id, user_id), None)
 
 
-async def send_answer(message: Message, answer: Answer, subject: str) -> None:
+async def send_answer(
+    message: Message, localized: Localized, answer: Answer, subject: str
+) -> None:
     if message.chat:
         await cleanup_previous_message(message.bot, message.chat.id)
 
-    reply_markup = build_answer_menu(subject)
+    reply_markup = build_answer_menu(localized, subject)
     if answer.media_path and os.path.exists(answer.media_path):
         media = FSInputFile(answer.media_path)
         if answer.media_type == "photo":
-            sent = await message.answer_photo(media, caption=answer.text, reply_markup=reply_markup)
+            sent = await message.answer_photo(
+                media,
+                caption=answer.text,
+                reply_markup=reply_markup,
+                parse_mode="HTML",
+            )
         elif answer.media_type == "video":
-            sent = await message.answer_video(media, caption=answer.text, reply_markup=reply_markup)
+            sent = await message.answer_video(
+                media,
+                caption=answer.text,
+                reply_markup=reply_markup,
+                parse_mode="HTML",
+            )
         else:
             logger.warning("Unknown media_type: %s", answer.media_type)
-            sent = await message.answer(answer.text, reply_markup=reply_markup)
+            sent = await message.answer(
+                answer.text,
+                reply_markup=reply_markup,
+                parse_mode="HTML",
+            )
     else:
         if answer.media_path:
             logger.warning("Media file not found: %s", answer.media_path)
-        sent = await message.answer(answer.text, reply_markup=reply_markup)
+        sent = await message.answer(
+            answer.text,
+            reply_markup=reply_markup,
+            parse_mode="HTML",
+        )
 
     if message.chat:
         LAST_BOT_MESSAGE_ID[message.chat.id] = sent.message_id
 
 
-def build_support_payload(message: Message) -> str:
+def build_support_payload(message: Message, localized: Localized) -> str:
     user = message.from_user
-    username = f"@{user.username}" if user and user.username else "—"
-    full_name = user.full_name if user else "—"
-    text = message.text or "<не текстовое сообщение>"
-
-    return (
-        f"#SUPREQUEST #USER{user.id if user else '—'}\n"
-        f"Имя: {username}\n"
-        f"Текст: {text}"
+    username = (
+        f"@{user.username}"
+        if user and user.username
+        else localized.messages["unknown_subject"]
     )
+    text = message.text or localized.messages["support_payload_non_text_fallback"]
+    template = localized.messages["support_payload_template"]
+    user_id = user.id if user else localized.messages["unknown_subject"]
+
+    return template.format(user_id=user_id, username=username, text=text)
 
 
 async def main() -> None:
@@ -538,66 +574,106 @@ async def main() -> None:
     async def cmd_start(message: Message, state: FSMContext) -> None:
         await state.clear()
         log_message_event(message, EVENT_START)
+        if message.from_user:
+            USER_LANG.pop(message.from_user.id, None)
+        await send_text(message, LANGUAGE_PROMPT, reply_markup=LANGUAGE_MENU)
+
+    @router.callback_query(F.data.startswith(LANG_SELECT_PREFIX))
+    async def language_select_callback(call: CallbackQuery, state: FSMContext) -> None:
+        lang = call.data[len(LANG_SELECT_PREFIX) :]
+        if lang not in TEXTS_BY_LANG:
+            lang = DEFAULT_LANG
+        if call.from_user:
+            USER_LANG[call.from_user.id] = lang
+        localized = get_localized_by_lang(lang)
+        await state.clear()
         await send_text(
-            message,
-            "Здраствуйте! Мы готовы ответить на любой ваш вопрос. Если вы его не нашли в данном боте, оставьте обращение или напишите @modern_1mctech",
-            reply_markup=MAIN_MENU,
+            call.message,
+            localized.messages["welcome"],
+            reply_markup=localized.menus["main"],
         )
+        await call.answer()
 
     @router.message(Command("stats"))
     async def cmd_stats(message: Message) -> None:
         user_id = message.from_user.id if message.from_user else None
+        localized = get_localized_for_user(message.from_user)
+        stats_localized = get_localized_by_lang("ru")
         if message.chat.id != admin_chat_id and user_id != admin_chat_id:
-            await send_text(message, "Команда доступна только администратору.", reply_markup=MAIN_MENU)
+            await send_text(
+                message,
+                stats_localized.messages["stats_unauthorized"],
+                reply_markup=localized.menus["main"],
+            )
             return
 
         stats = get_stats(ANALYTICS_DB_PATH, days=7)
         log_message_event(message, EVENT_STATS, data={"days": 7})
 
         lines = [
-            "Статистика за 7 дней:",
-            f"События: {stats['total']}",
-            f"Уникальные пользователи: {stats['unique_users']}",
+            stats_localized.messages["stats_header"],
+            stats_localized.messages["stats_total"].format(total=stats["total"]),
+            stats_localized.messages["stats_unique_users"].format(
+                unique_users=stats["unique_users"]
+            ),
         ]
         if stats["by_event"]:
             lines.append("")
-            lines.append("По событиям:")
+            lines.append(stats_localized.messages["stats_by_event_title"])
             for event_type, count in stats["by_event"]:
                 lines.append(f"- {event_type}: {count}")
         if stats["top_faq"]:
             lines.append("")
-            lines.append("Топ FAQ:")
+            lines.append(stats_localized.messages["stats_top_faq_title"])
             for subject, count in stats["top_faq"]:
-                lines.append(f"- {subject_label(subject)}: {count}")
+                lines.append(f"- {subject_label(stats_localized, subject)}: {count}")
         if stats["top_install"]:
             lines.append("")
-            lines.append("Топ установки:")
+            lines.append(stats_localized.messages["stats_top_install_title"])
             for subject, count in stats["top_install"]:
-                lines.append(f"- {subject_label(subject)}: {count}")
+                lines.append(f"- {subject_label(stats_localized, subject)}: {count}")
         lines.append("")
-        lines.append(f"Отзывы: помогло {stats['helpful']}, не помогло {stats['unhelpful']}")
+        lines.append(
+            stats_localized.messages["stats_feedback"].format(
+                helpful=stats["helpful"],
+                unhelpful=stats["unhelpful"],
+            )
+        )
 
-        await send_text(message, "\n".join(lines), reply_markup=MAIN_MENU)
+        await send_text(message, "\n".join(lines), reply_markup=localized.menus["main"])
 
-    @router.message(Support.waiting_message, F.text.casefold() == "отмена")
+    @router.message(Support.waiting_message, F.text.casefold().in_(CANCEL_TRIGGERS))
     async def support_cancel(message: Message, state: FSMContext) -> None:
         await state.clear()
         log_message_event(message, EVENT_SUPPORT_CANCEL)
         if message.chat and message.from_user:
             clear_support_pending(message.chat.id, message.from_user.id)
-        await send_text(message, "Запрос отменён.", reply_markup=MAIN_MENU)
+        localized = get_localized_for_user(message.from_user)
+        await send_text(
+            message,
+            localized.messages["support_cancel"],
+            reply_markup=localized.menus["main"],
+        )
 
     @router.message(Support.waiting_message)
     async def support_message(message: Message, state: FSMContext) -> None:
+        localized = get_localized_for_user(message.from_user)
+        lang = get_user_lang(message.from_user)
         if not message.text:
             log_message_event(
                 message,
                 EVENT_SUPPORT_NON_TEXT,
                 data={"content_type": message.content_type},
             )
-            await send_text(message, "Опишите проблему текстом.", reply_markup=SUPPORT_MENU)
+            await send_text(
+                message,
+                localized.messages["support_non_text"],
+                reply_markup=localized.menus["support"],
+            )
             if message.chat and message.from_user:
-                await schedule_support_reminder(message.bot, message.chat.id, message.from_user.id)
+                await schedule_support_reminder(
+                    message.bot, message.chat.id, message.from_user.id, lang
+                )
             return
 
         log_message_event(
@@ -607,22 +683,30 @@ async def main() -> None:
         )
         if message.chat and message.from_user:
             clear_support_pending(message.chat.id, message.from_user.id)
-        await bot.send_message(admin_chat_id, build_support_payload(message))
+        await bot.send_message(admin_chat_id, build_support_payload(message, localized))
         await state.clear()
-        await send_text(message, "Спасибо! Мы уже получили ваше обращение.", reply_markup=MAIN_MENU)
+        await send_text(
+            message,
+            localized.messages["support_submit_thanks"],
+            reply_markup=localized.menus["main"],
+        )
 
     @router.callback_query(F.data == SUPPORT_START)
     async def support_start_callback(call: CallbackQuery, state: FSMContext) -> None:
         await state.set_state(Support.waiting_message)
         log_callback_event(call, EVENT_SUPPORT_START)
+        localized = get_localized_for_user(call.from_user)
+        lang = get_user_lang(call.from_user)
         await send_text(
             call.message,
-            "Опишите проблему одним сообщением — мы передадим её в поддержку.",
-            reply_markup=SUPPORT_MENU,
+            localized.messages["support_start_prompt"],
+            reply_markup=localized.menus["support"],
         )
         if call.message.chat and call.from_user:
             clear_support_pending(call.message.chat.id, call.from_user.id)
-            await schedule_support_reminder(call.bot, call.message.chat.id, call.from_user.id)
+            await schedule_support_reminder(
+                call.bot, call.message.chat.id, call.from_user.id, lang
+            )
         await call.answer()
 
     @router.callback_query(F.data == SUPPORT_RESOLVED)
@@ -631,10 +715,11 @@ async def main() -> None:
         log_callback_event(call, EVENT_SUPPORT_RESOLVED)
         if call.message.chat and call.from_user:
             clear_support_pending(call.message.chat.id, call.from_user.id)
+        localized = get_localized_for_user(call.from_user)
         await send_text(
             call.message,
-            "Отлично! Если появятся вопросы — напишите нам в любое время.",
-            reply_markup=MAIN_MENU,
+            localized.messages["support_resolved"],
+            reply_markup=localized.menus["main"],
         )
         await call.answer()
 
@@ -644,14 +729,24 @@ async def main() -> None:
         log_callback_event(call, EVENT_SUPPORT_CANCEL)
         if call.message.chat and call.from_user:
             clear_support_pending(call.message.chat.id, call.from_user.id)
-        await send_text(call.message, "Запрос отменён.", reply_markup=MAIN_MENU)
+        localized = get_localized_for_user(call.from_user)
+        await send_text(
+            call.message,
+            localized.messages["support_cancel_callback"],
+            reply_markup=localized.menus["main"],
+        )
         await call.answer()
 
     @router.callback_query(F.data == MAIN_INSTALL)
     async def install_menu_callback(call: CallbackQuery, state: FSMContext) -> None:
         await state.clear()
         log_callback_event(call, EVENT_INSTALL_MENU)
-        await send_text(call.message, "Выберите платформу: ", reply_markup=INSTALL_MENU)
+        localized = get_localized_for_user(call.from_user)
+        await send_text(
+            call.message,
+            localized.messages["install_menu_prompt"],
+            reply_markup=localized.menus["install"],
+        )
         await call.answer()
 
     @router.callback_query(F.data.in_((MAIN_MENU_OPEN, INSTALL_BACK)))
@@ -660,51 +755,61 @@ async def main() -> None:
         log_callback_event(call, EVENT_MAIN_MENU_OPEN, data={"source": call.data})
         if call.message.chat and call.from_user:
             clear_support_pending(call.message.chat.id, call.from_user.id)
-        await send_text(call.message, "Здравствуйте! Мы готовы ответить на любой ваш вопрос. Если вы его не нашли в данном боте, оставьте обращение или напишите @modern_1mctech", reply_markup=MAIN_MENU)
+        localized = get_localized_for_user(call.from_user)
+        await send_text(
+            call.message,
+            localized.messages["main_menu"],
+            reply_markup=localized.menus["main"],
+        )
         await call.answer()
 
-    @router.callback_query(F.data.in_(INSTALL_ANSWERS.keys()))
+    @router.callback_query(F.data.in_(INSTALL_ANSWER_KEYS))
     async def install_answer_callback(call: CallbackQuery, state: FSMContext) -> None:
         await state.clear()
         log_callback_event(call, EVENT_INSTALL_ANSWER, subject=call.data)
-        answer = INSTALL_ANSWERS[call.data]
-        await send_answer(call.message, answer, call.data)
+        localized = get_localized_for_user(call.from_user)
+        answer = localized.install_answers[call.data]
+        await send_answer(call.message, localized, answer, call.data)
         await call.answer()
 
-    @router.callback_query(F.data.in_(ANSWERS.keys()))
+    @router.callback_query(F.data.in_(ANSWER_KEYS))
     async def main_answer_callback(call: CallbackQuery, state: FSMContext) -> None:
         await state.clear()
         log_callback_event(call, EVENT_FAQ_ANSWER, subject=call.data)
-        answer = ANSWERS[call.data]
-        await send_answer(call.message, answer, call.data)
+        localized = get_localized_for_user(call.from_user)
+        answer = localized.answers[call.data]
+        await send_answer(call.message, localized, answer, call.data)
         await call.answer()
 
     @router.callback_query(F.data.startswith(FEEDBACK_HELPFUL_PREFIX))
     async def feedback_helpful_callback(call: CallbackQuery) -> None:
         subject = call.data[len(FEEDBACK_HELPFUL_PREFIX) :]
         log_callback_event(call, EVENT_FEEDBACK_HELPFUL, subject=subject)
+        localized = get_localized_for_user(call.from_user)
         if call.message:
             try:
-                await call.message.edit_reply_markup(reply_markup=ANSWER_MENU)
+                await call.message.edit_reply_markup(reply_markup=localized.menus["answer"])
             except Exception:
                 logger.warning("Failed to update feedback menu")
-        await call.answer("Спасибо за отзыв!")
+        await call.answer(localized.messages["feedback_thanks"])
 
     @router.callback_query(F.data.startswith(FEEDBACK_UNHELPFUL_PREFIX))
     async def feedback_unhelpful_callback(call: CallbackQuery) -> None:
         subject = call.data[len(FEEDBACK_UNHELPFUL_PREFIX) :]
         log_callback_event(call, EVENT_FEEDBACK_UNHELPFUL, subject=subject)
+        localized = get_localized_for_user(call.from_user)
         if call.message:
             try:
-                await call.message.edit_reply_markup(reply_markup=ANSWER_MENU)
+                await call.message.edit_reply_markup(reply_markup=localized.menus["answer"])
             except Exception:
                 logger.warning("Failed to update feedback menu")
-        await call.answer("Спасибо за отзыв!")
+        await call.answer(localized.messages["feedback_thanks"])
 
     @router.callback_query()
     async def fallback_callback(call: CallbackQuery) -> None:
         log_callback_event(call, EVENT_FALLBACK_CALLBACK, data={"callback_data": call.data})
-        await call.answer("Неизвестная команда.", show_alert=False)
+        localized = get_localized_for_user(call.from_user)
+        await call.answer(localized.messages["fallback_callback"], show_alert=False)
 
     @router.message(StateFilter(None), F.text)
     async def fallback(message: Message) -> None:
@@ -713,7 +818,12 @@ async def main() -> None:
             EVENT_FALLBACK_MESSAGE,
             data={"text_len": len(message.text), "text_preview": text_preview(message.text)},
         )
-        await send_text(message, "Пожалуйста, выберите пункт из меню.", reply_markup=MAIN_MENU)
+        localized = get_localized_for_user(message.from_user)
+        await send_text(
+            message,
+            localized.messages["fallback_message"],
+            reply_markup=localized.menus["main"],
+        )
 
     dp.include_router(router)
     await dp.start_polling(bot)
