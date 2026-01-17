@@ -344,7 +344,8 @@ INSTALL_ANSWER_KEYS = set(TEXTS_BY_LANG[DEFAULT_LANG]["install_answers"].keys())
 LANG_SELECT_PREFIX = "lang:"
 LANGUAGE_MENU_ROWS = [
     [("Русский", f"{LANG_SELECT_PREFIX}ru"), ("Қазақша", f"{LANG_SELECT_PREFIX}kk")],
-    [("English", f"{LANG_SELECT_PREFIX}en")],
+    [("English", f"{LANG_SELECT_PREFIX}en"), ("O'zbek tili", f"{LANG_SELECT_PREFIX}uz")],
+    [("Azərbaycan",f"{LANG_SELECT_PREFIX}az")],
 ]
 LANGUAGE_MENU = build_inline_keyboard(LANGUAGE_MENU_ROWS)
 LANGUAGE_PROMPT = "Выберите язык / Choose language / Тілді таңдаңыз / Tilni tanlang / Dili seçin"
