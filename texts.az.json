@@ -1,148 +1,72 @@
 {
   "menus": {
     "main": [
-      [
-        [
-          "⭐️Heç bir açar işləmir",
-          "main:keys"
-        ]
-      ],
-      [
-        [
-          "⭐️Proqramı necə quraşdırmaq olar",
-          "main:install"
-        ]
-      ],
-      [
-        [
-          "⭐️Abunəliyi necə uzatmaq olar",
-          "main:renew"
-        ]
-      ],
-      [
-        [
-          "⭐️İnsanı necə dəvət etmək olar",
-          "main:invite"
-        ]
-      ],
-      [
-        [
-          "⭐️Sualınıza cavab tapa bilmədiniz",
-          "support:start"
-        ]
-      ]
+      [["⭐️Heç bir açar işləmir", "main:keys"]],
+      [["⭐️Tətbiqi necə quraşdırmaq olar", "main:install"]],
+      [["⭐️Abunəliyi necə uzatmaq olar", "main:renew"]],
+      [["⭐️Kimisə necə dəvət etmək olar", "main:invite"]],
+      [["⭐️Sualınıza cavab tapa bilmədiniz", "support:start"]]
     ],
     "install": [
       [
-        [
-          "🍎iOS",
-          "install:ios"
-        ],
-        [
-          "🤖Android",
-          "install:android"
-        ]
+        ["🍎iOS", "install:ios"],
+        ["🤖Android", "install:android"]
       ],
       [
-        [
-          "🖥️Windows",
-          "install:windows"
-        ],
-        [
-          "🍎macOS",
-          "install:macos"
-        ]
+        ["🖥️Windows", "install:windows"],
+        ["🍎macOS", "install:macos"]
       ],
-      [
-        [
-          "🐧Linux",
-          "install:linux"
-        ]
-      ],
-      [
-        [
-          "◀Geri",
-          "install:back"
-        ]
-      ],
-      [
-        [
-          "😔Cavab mənə uyğun gəlmir",
-          "support:start"
-        ]
-      ]
+      [["🐧Linux", "install:linux"]],
+      [["◀Geri", "install:back"]],
+      [["😔Cavab mənə kömək etmir", "support:start"]]
     ],
-    "support": [
-      [
-        [
-          "Ləğv et",
-          "support:cancel"
-        ]
-      ]
-    ],
+    "support": [[["Ləğv et", "support:cancel"]]],
     "support_reminder": [
-      [
-        [
-          "👍Problem həll edildi",
-          "support:resolved"
-        ]
-      ],
-      [
-        [
-          "👎Ləğv et",
-          "support:cancel"
-        ]
-      ]
+      [["👍Problem həll olundu", "support:resolved"]],
+      [["👎Ləğv et", "support:cancel"]]
     ],
-    "answer": [
-      [
-        [
-          "📋Əsas menyu",
-          "main:menu"
-        ]
-      ]
-    ]
+    "answer": [[["📋Əsas menyu", "main:menu"]]]
   },
   "answers": {
     "main:keys": {
-      "text": "1) İnternetin VPNsiz işlədiyini yoxlayın.\n2) Problem davam edərsə, @modern_1mctech dəstək xidmətindən yeni açar tələb edin.",
+      "text": "1) İnternetin VPN olmadan işlədiyini yoxlayın.\n2) Tətbiqdə \"spidometr\" işarəsinə klikləyin və hər bir lokasiya ilə əlaqəni yoxlayın.\n3) Problem davam edərsə, @modern_1mctech dəstəyindən yeni açar istəyin",
       "media_path": "media/faq1.png",
       "media_type": "photo"
     },
     "main:renew": {
-      "text": "Abunəliyi menecerdən və ya şəxsi kabinetdən uzatmaq olar.\nÖdəniş linkiniz yoxdursa, dəstəyə yazın — biz onu göndərərik.",
+      "text": "Abunəlik @LockDown_VPN_Bbot vasitəsilə uzadıla bilər.\n\"Ev\" → \"Abunə al\" klikləyin. Abunə müddətini, ödəniş üsulunu, abunənin kimə aid olduğunu seçin və ödəyin.\nUğurlu ödənişdən sonra açarlarınız uzadılacaq, onları yenidən əlavə etmək lazım deyil.",
       "media_path": "media/faq2.png",
       "media_type": "photo"
     },
     "main:invite": {
-      "text": "@LockDown_VPN_Bbot botunu açın → Əsas səhifə → Dostu dəvət et.\nDəvət linkini kopyalayın və şəxsə göndərin.",
+      "text": "@LockDown_VPN_Bbot botunu açın → Ev → Dost dəvət et.\nDəvət linkini kopyalayın və şəxsə göndərin.",
       "media_path": "media/faq3.png",
       "media_type": "photo"
     }
   },
   "install_answers": {
     "install:ios": {
-      "text": "1) App Store-u açın və Happ proqramını quraşdırın - <a href=\"https://apps.apple.com/us/app/happ-proxy-utility/id6504287215\">quraşdırma linki</a>.\n2) \"Mənim abunəliyim\" bölməsində abunəliyinizi kopyalayın\n3) Happ proqramında \"Buferdən yapışdır\" düyməsinə basın\n4) Təbriklər, abunəliyiniz əlavə edildi! \"Sürətölçən\" işarəsinə basaraq hər bir lokasiya ilə əlaqə sürətini yoxlaya bilərsiniz. Dəyərin aşağı olduğu yer — həmin lokasiya hazırda daha yaxşı işləyir\n5) Lokasiyanı seçin və qoşul düyməsinə basın.",
+      "text": "1) App Store açın və Happ tətbiqini quraşdırın - <a href=\"https://apps.apple.com/us/app/happ-proxy-utility/id6504287215\">quraşdırma linki</a>.\n2) \"Mənim abunəliyim\" bölməsində abunəliyinizi kopyalayın\n3) Happ tətbiqində \"Buferdən yapışdır\" klikləyin\n4) Təbrik edirik, abunəlik əlavə olundu! \"Spidometr\" işarəsinə klikləməklə hər bir lokasiya ilə əlaqə sürətini yoxlaya bilərsiniz. Dəyərin aşağı olduğu yer - həmin lokasiya hazırda daha yaxşı işləyir\n5) Lokasiyanı seçin və qoşul klikləyin.",
       "media_path": "media/install_ios.mp4",
       "media_type": "photo"
     },
     "install:android": {
-      "text": "1) Google Play-dən proqramı quraşdırın - <a href=\"https://play.google.com/store/apps/details?id=com.happproxy&pcampaignid=web_share\">quraşdırma linki</a>.\n2) \"Mənim abunəliyim\" bölməsində abunəliyinizi kopyalayın\n3) Happ proqramında \"Buferdən yapışdır\" düyməsinə basın\n4) Təbriklər, abunəliyiniz əlavə edildi! \"Sürətölçən\" işarəsinə basaraq hər bir lokasiya ilə əlaqə sürətini yoxlaya bilərsiniz. Dəyərin aşağı olduğu yer — həmin lokasiya hazırda daha yaxşı işləyir\n5) Lokasiyanı seçin və qoşul düyməsinə basın.",
+      "text": "1) Google Play-dən tətbiqi quraşdırın - <a href=\"https://play.google.com/store/apps/details?id=com.happproxy&pcampaignid=web_share\">quraşdırma linki</a>.\n2) \"Mənim abunəliyim\" bölməsində abunəliyinizi kopyalayın\n3) Happ tətbiqində \"Buferdən yapışdır\" klikləyin\n4) Təbrik edirik, abunəlik əlavə olundu! \"Spidometr\" işarəsinə klikləməklə hər bir lokasiya ilə əlaqə sürətini yoxlaya bilərsiniz. Dəyərin aşağı olduğu yer - həmin lokasiya hazırda daha yaxşı işləyir\n5) Lokasiyanı seçin və qoşul klikləyin.",
       "media_path": "media/install_android.mp4",
       "media_type": "photo"
     },
     "install:windows": {
-      "text": "1) Windows üçün proqramı quraşdırın. - <a href=\"https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe\">quraşdırma linki</a>\n2) \"Mənim abunəliyim\" bölməsində abunəliyinizi kopyalayın\n3) Happ proqramında \"Buferdən yapışdır\" düyməsinə basın\n4) Təbriklər, abunəliyiniz əlavə edildi! \"Sürətölçən\" işarəsinə basaraq hər bir lokasiya ilə əlaqə sürətini yoxlaya bilərsiniz. Dəyərin aşağı olduğu yer — həmin lokasiya hazırda daha yaxşı işləyir\n5) Lokasiyanı seçin və qoşul düyməsinə basın.",
+      "text": "1) Windows üçün tətbiqi quraşdırın - <a href=\"https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe\">quraşdırma linki</a>\n2) \"Mənim abunəliyim\" bölməsində abunəliyinizi kopyalayın\n3) Happ tətbiqində \"Buferdən yapışdır\" klikləyin\n4) Təbrik edirik, abunəlik əlavə olundu! \"Spidometr\" işarəsinə klikləməklə hər bir lokasiya ilə əlaqə sürətini yoxlaya bilərsiniz. Dəyərin aşağı olduğu yer - həmin lokasiya hazırda daha yaxşı işləyir\n5) Lokasiyanı seçin və qoşul klikləyin.",
       "media_path": "media/install_windows.mp4",
       "media_type": "photo"
     },
     "install:macos": {
-      "text": "1) App Store-u açın və Happ proqramını quraşdırın - <a href=\"https://apps.apple.com/us/app/happ-proxy-utility/id6504287215\">quraşdırma linki</a>.\n2) \"Mənim abunəliyim\" bölməsində abunəliyinizi kopyalayın\n3) Happ proqramında \"Buferdən yapışdır\" düyməsinə basın\n4) Təbriklər, abunəliyiniz əlavə edildi! \"Sürətölçən\" işarəsinə basaraq hər bir lokasiya ilə əlaqə sürətini yoxlaya bilərsiniz. Dəyərin aşağı olduğu yer — həmin lokasiya hazırda daha yaxşı işləyir\n5) Lokasiyanı seçin və qoşul düyməsinə basın.",
+      "text": "1) App Store açın və Happ tətbiqini quraşdırın - <a href=\"https://apps.apple.com/us/app/happ-proxy-utility/id6504287215\">quraşdırma linki</a>.\n2) \"Mənim abunəliyim\" bölməsində abunəliyinizi kopyalayın\n3) Happ tətbiqində \"Buferdən yapışdır\" klikləyin\n4) Təbrik edirik, abunəlik əlavə olundu! \"Spidometr\" işarəsinə klikləməklə hər bir lokasiya ilə əlaqə sürətini yoxlaya bilərsiniz. Dəyərin aşağı olduğu yer - həmin lokasiya hazırda daha yaxşı işləyir\n5) Lokasiyanı seçin və qoşul klikləyin.",
       "media_path": "media/install_macos.mp4",
       "media_type": "photo"
     },
     "install:linux": {
-      "text": "1) <a href=\"https://github.com/MatsuriDayo/nekoray/releases/download/4.0.1/nekoray-4.0.1-2024-12-12-linux64.zip\">NekoRay</a> proqramını quraşdırın;\n2) Arxivi açın, binar faylı işə salın;\n3) Alətlər panelindən TUN Rejimi qutusunu seçin;\n4) yeni giriş açarınızı kopyalayın, proqrama keçin və Ctrl + V düymələrinə basın;\n5) Siyahıdakı açar üzərində siçanın sağ düyməsi ilə klik edin → Başlat — hazırdır! Yenidən şəbəkəyə qoşuldunuz!",
+      "text": "1) <a href=\"https://github.com/MatsuriDayo/nekoray/releases/download/4.0.1/nekoray-4.0.1-2024-12-12-linux64.zip\">NekoRay</a> tətbiqini quraşdırın;\n2) Arxivdən çıxarın, binary faylını işə salın;\n3) Alətlər panelində TUN rejimi qutusunu seçin;\n4) Yeni giriş açarınızı kopyalayın, tətbiqə keçin və Ctrl + V kombinasiyasını basın;\n5) Siyahıdakı açar üzərində sağ klik → Başlat — hazır! Yenidən onlaynsınız!",
       "media_path": "media/install_linux.mp4",
       "media_type": "photo"
     }
@@ -150,7 +74,7 @@
   "subject_labels": {
     "main:keys": "🔑 Heç bir açar işləmir?",
     "main:renew": "💸 Abunəliyi necə uzatmaq olar?",
-    "main:invite": "👥İnsanı necə dəvət etmək olar?",
+    "main:invite": "👥Kimisə necə dəvət etmək olar?",
     "install:ios": "🍎iOS",
     "install:android": "🤖Android",
     "install:windows": "🖥️Windows",
@@ -158,27 +82,27 @@
     "install:linux": "🐧Linux"
   },
   "messages": {
-    "support_reminder": "❓Kömək lazımdırsa, problemi bir mesajda təsvir edin — biz onu dəstək xidmətinə yönləndirəcəyik.",
-    "welcome": "👋Salam! Biz hər hansı sualınıza cavab verməyə hazırıq. Əgər onu bu botda tapmasanız, müraciət edin və ya @modern_1mctech yazın",
-    "stats_unauthorized": "Bu əmr yalnız administrator üçün mövcuddur.",
+    "support_reminder": "❑Kömək lazımdırsa, problemi bir mesajla təsvir edin — biz onu dəstək xidmətinə ötürəcəyik.",
+    "welcome": "👋Salam! Biz istənilən suala cavab verməyə hazırıq. Əgər onu bu botda tapa bilməsiniz, sorğu qoyun və ya @modern_1mctech yazın",
+    "stats_unauthorized": "Komanda yalnız administrator üçün əlçatandır.",
     "support_cancel": "Sorğu ləğv edildi.",
     "support_non_text": "Problemi mətnlə təsvir edin.",
-    "support_submit_thanks": "Təşəkkürlər! Biz sizin müraciətinizi qəbul etdik.",
-    "support_start_prompt": "Problemi bir mesajda təsvir edin — biz onu dəstək xidmətinə yönləndirəcəyik.",
-    "support_resolved": "Əla! Əgər suallar yaransa — istənilən vaxt bizə yazın.",
+    "support_submit_thanks": "Təşəkkürlər! Biz sorğunuzu aldıq.",
+    "support_start_prompt": "Problemi bir mesajla təsvir edin — biz onu dəstək xidmətinə ötürəcəyik.",
+    "support_resolved": "Əla! Əgər suallar yaransa — bizə istənilən vaxt yazın.",
     "support_cancel_callback": "🔴Sorğu ləğv edildi.",
     "install_menu_prompt": "⚙️Platforma seçin: ",
-    "main_menu": "👋Salam! Biz hər hansı sualınıza cavab verməyə hazırıq. Əgər onu bu botda tapmasanız, müraciət edin və ya @modern_1mctech yazın",
-    "feedback_thanks": "✅Rəyiniz üçün təşəkkürlər!",
-    "fallback_callback": "Naməlum əmr.",
-    "fallback_message": "Xahiş edirik, menyudan bənd seçin.",
-    "support_cancel_trigger": "ləğv et",
+    "main_menu": "👋Salam! Biz istənilən suala cavab verməyə hazırıq. Əgər onu bu botda tapa bilməsiniz, sorğu qoyun və ya @modern_1mctech yazın",
+    "feedback_thanks": "✅Rəy üçün təşəkkürlər!",
+    "fallback_callback": "Naməlum komanda.",
+    "fallback_message": "Zəhmət olmasa menyudan element seçin.",
+    "support_cancel_trigger": "ləğv",
     "feedback_helpful_button": "👍kömək etdi",
     "feedback_unhelpful_button": "👎kömək etmədi",
     "back_to_menu_button": "Menyuya qayıt",
     "support_payload_template": "#SUPREQUEST #USER{user_id}\nAd: {username}\nMətn: {text}",
-    "support_payload_non_text_fallback": "<mətnli olmayan mesaj>",
-    "stats_header": "Son 7 gün üçün statistika:",
+    "support_payload_non_text_fallback": "<mətn olmayan mesaj>",
+    "stats_header": "7 gün üçün statistika:",
     "stats_total": "Hadisələr: {total}",
     "stats_unique_users": "Unikal istifadəçilər: {unique_users}",
     "stats_by_event_title": "Hadisələr üzrə:",

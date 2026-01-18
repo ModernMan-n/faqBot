@@ -35,6 +35,8 @@ TEXTS_EN_PATH = os.getenv("BOT_TEXTS_EN_PATH", "texts.en.json")
 TEXTS_KZ_PATH = os.getenv("BOT_TEXTS_KZ_PATH", "texts.kz.json")
 TEXTS_AZ_PATH = os.getenv("BOT_TEXTS_AZ_PATH", "texts.az.json")
 TEXTS_UZ_PATH = os.getenv("BOT_TEXTS_UZ_PATH", "texts.uz.json")
+TEXTS_HI_PATH = os.getenv("BOT_TEXTS_HI_PATH", "texts.hi.json")
+TEXTS_TG_PATH = os.getenv("BOT_TEXTS_TG_PATH", "texts.tg.json")
 
 
 def load_texts(path: str) -> dict:
@@ -63,6 +65,14 @@ if texts_az:
 texts_uz = load_optional_texts(TEXTS_UZ_PATH)
 if texts_uz:
     TEXTS_BY_LANG["uz"] = texts_uz
+
+texts_hi = load_optional_texts(TEXTS_HI_PATH)
+if texts_hi:
+    TEXTS_BY_LANG["hi"] = texts_hi
+    
+texts_tg = load_optional_texts(TEXTS_TG_PATH)
+if texts_tg:
+    TEXTS_BY_LANG["tg"] = texts_tg
 
 if DEFAULT_LANG not in TEXTS_BY_LANG:
     DEFAULT_LANG = "ru"
@@ -345,10 +355,11 @@ LANG_SELECT_PREFIX = "lang:"
 LANGUAGE_MENU_ROWS = [
     [("Русский", f"{LANG_SELECT_PREFIX}ru"), ("Қазақша", f"{LANG_SELECT_PREFIX}kk")],
     [("English", f"{LANG_SELECT_PREFIX}en"), ("O'zbek tili", f"{LANG_SELECT_PREFIX}uz")],
-    [("Azərbaycan",f"{LANG_SELECT_PREFIX}az")],
+    [("Azərbaycan",f"{LANG_SELECT_PREFIX}az"), ("Тоҷикӣ",f"{LANG_SELECT_PREFIX}tg")],
+    [("हिंदी",f"{LANG_SELECT_PREFIX}hi")],
 ]
 LANGUAGE_MENU = build_inline_keyboard(LANGUAGE_MENU_ROWS)
-LANGUAGE_PROMPT = "Выберите язык / Choose language / Тілді таңдаңыз / Tilni tanlang / Dili seçin"
+LANGUAGE_PROMPT = "Выберите язык / Choose language / Тілді таңдаңыз / Tilni tanlang / Dili seçin / Забонро интихоб кунед / भाषा चुनें"
 
 
 def subject_label(localized: Localized, subject: Optional[str]) -> str:

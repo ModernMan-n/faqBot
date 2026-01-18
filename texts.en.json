@@ -1,156 +1,80 @@
 {
   "menus": {
     "main": [
-      [
-        [
-          "⭐️None of the keys are working",
-          "main:keys"
-        ]
-      ],
-      [
-        [
-          "⭐️How to install the app",
-          "main:install"
-        ]
-      ],
-      [
-        [
-          "⭐️How to renew subscription",
-          "main:renew"
-        ]
-      ],
-      [
-        [
-          "⭐️How to invite a person",
-          "main:invite"
-        ]
-      ],
-      [
-        [
-          "⭐️Didn't find an answer to your question",
-          "support:start"
-        ]
-      ]
+      [["⭐️None of the keys are working", "main:keys"]],
+      [["⭐️How to install the app", "main:install"]],
+      [["⭐️How to renew subscription", "main:renew"]],
+      [["⭐️How to invite someone", "main:invite"]],
+      [["⭐️Didn't find answer to your question", "support:start"]]
     ],
     "install": [
       [
-        [
-          "🍎iOS",
-          "install:ios"
-        ],
-        [
-          "🤖Android",
-          "install:android"
-        ]
+        ["🍎iOS", "install:ios"],
+        ["🤖Android", "install:android"]
       ],
       [
-        [
-          "🖥️Windows",
-          "install:windows"
-        ],
-        [
-          "🍎macOS",
-          "install:macos"
-        ]
+        ["🖥️Windows", "install:windows"],
+        ["🍎macOS", "install:macos"]
       ],
-      [
-        [
-          "🐧Linux",
-          "install:linux"
-        ]
-      ],
-      [
-        [
-          "◀Back",
-          "install:back"
-        ]
-      ],
-      [
-        [
-          "😔The answer doesn't suit me",
-          "support:start"
-        ]
-      ]
+      [["🐧Linux", "install:linux"]],
+      [["◀Back", "install:back"]],
+      [["😔Answer doesn't help me", "support:start"]]
     ],
-    "support": [
-      [
-        [
-          "Cancel",
-          "support:cancel"
-        ]
-      ]
-    ],
+    "support": [[["Cancel", "support:cancel"]]],
     "support_reminder": [
-      [
-        [
-          "👍Issue resolved",
-          "support:resolved"
-        ]
-      ],
-      [
-        [
-          "👎Cancel",
-          "support:cancel"
-        ]
-      ]
+      [["👍Issue resolved", "support:resolved"]],
+      [["👎Cancel", "support:cancel"]]
     ],
-    "answer": [
-      [
-        [
-          "📋Main menu",
-          "main:menu"
-        ]
-      ]
-    ]
+    "answer": [[["📋Main Menu", "main:menu"]]]
   },
   "answers": {
     "main:keys": {
-      "text": "1) Check that the internet works without VPN.\n2) If the problem persists, request a new key from support @modern_1mctech",
+      "text": "1) Check that internet works without VPN.\n2) In the app, click the \"speedometer\" icon and check connection with each location.\n3) If problem persists, request a new key from support @modern_1mctech",
       "media_path": "media/faq1.png",
       "media_type": "photo"
     },
     "main:renew": {
-      "text": "Subscription can be renewed through a manager or in your personal account.\nIf you don't have a payment link, write to support — we'll send it.",
+      "text": "Subscription can be renewed via bot @LockDown_VPN_Bbot.\nClick \"Home\" → \"Get subscription\". Choose subscription period, payment method, who the subscription is for and pay.\nAfter successful payment your keys will be extended, no need to add them again.",
       "media_path": "media/faq2.png",
       "media_type": "photo"
     },
     "main:invite": {
-      "text": "Open the bot @LockDown_VPN_Bbot → Main → Invite a friend.\nCopy the invitation link and send it to the person.",
+      "text": "Open bot @LockDown_VPN_Bbot → Home → Invite friend.\nCopy the invitation link and send it to the person.",
       "media_path": "media/faq3.png",
       "media_type": "photo"
     }
   },
   "install_answers": {
     "install:ios": {
-      "text": "1) Open the App Store and install the Happ app - <a href=\"https://apps.apple.com/us/app/happ-proxy-utility/id6504287215\">installation link</a>.\n2) Copy your subscription in the \"My Subscription\" section\n3) In the Happ app, tap \"Paste from clipboard\"\n4) Congratulations, your subscription has been added! By tapping the \"speedometer\" icon you can check the connection speed with each location. Where the value is lower - that location works better at the moment\n5) Select a location and tap connect.",
+      "text": "1) Open App Store and install Happ app - <a href=\"https://apps.apple.com/us/app/happ-proxy-utility/id6504287215\">install link</a>.\n2) Copy your subscription in \"My subscription\" section\n3) In Happ app click \"Paste from clipboard\"\n4) Congratulations, subscription added! Clicking \"speedometer\" icon you can check connection speed with each location. Where value is lower - that location works better currently\n5) Choose location and click connect.",
       "media_path": "media/install_ios.mp4",
       "media_type": "photo"
     },
     "install:android": {
-      "text": "1) Install the app from Google Play - <a href=\"https://play.google.com/store/apps/details?id=com.happproxy&pcampaignid=web_share\">installation link</a>.\n2) Copy your subscription in the \"My Subscription\" section\n3) In the Happ app, tap \"Paste from clipboard\"\n4) Congratulations, your subscription has been added! By tapping the \"speedometer\" icon you can check the connection speed with each location. Where the value is lower - that location works better at the moment\n5) Select a location and tap connect.",
+      "text": "1) Install app from Google Play - <a href=\"https://play.google.com/store/apps/details?id=com.happproxy&pcampaignid=web_share\">install link</a>.\n2) Copy your subscription in \"My subscription\" section\n3) In Happ app click \"Paste from clipboard\"\n4) Congratulations, subscription added! Clicking \"speedometer\" icon you can check connection speed with each location. Where value is lower - that location works better currently\n5) Choose location and click connect.",
       "media_path": "media/install_android.mp4",
       "media_type": "photo"
     },
     "install:windows": {
-      "text": "1) Install the app for Windows. - <a href=\"https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe\">installation link</a>\n2) Copy your subscription in the \"My Subscription\" section\n3) In the Happ app, click \"Paste from clipboard\"\n4) Congratulations, your subscription has been added! By clicking the \"speedometer\" icon you can check the connection speed with each location. Where the value is lower - that location works better at the moment\n5) Select a location and click connect.",
+      "text": "1) Install app for Windows - <a href=\"https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe\">install link</a>\n2) Copy your subscription in \"My subscription\" section\n3) In Happ app click \"Paste from clipboard\"\n4) Congratulations, subscription added! Clicking \"speedometer\" icon you can check connection speed with each location. Where value is lower - that location works better currently\n5) Choose location and click connect.",
       "media_path": "media/install_windows.mp4",
       "media_type": "photo"
     },
     "install:macos": {
-      "text": "1) Open the App Store and install the Happ app - <a href=\"https://apps.apple.com/us/app/happ-proxy-utility/id6504287215\">installation link</a>.\n2) Copy your subscription in the \"My Subscription\" section\n3) In the Happ app, tap \"Paste from clipboard\"\n4) Congratulations, your subscription has been added! By tapping the \"speedometer\" icon you can check the connection speed with each location. Where the value is lower - that location works better at the moment\n5) Select a location and tap connect.",
+      "text": "1) Open App Store and install Happ app - <a href=\"https://apps.apple.com/us/app/happ-proxy-utility/id6504287215\">install link</a>.\n2) Copy your subscription in \"My subscription\" section\n3) In Happ app click \"Paste from clipboard\"\n4) Congratulations, subscription added! Clicking \"speedometer\" icon you can check connection speed with each location. Where value is lower - that location works better currently\n5) Choose location and click connect.",
       "media_path": "media/install_macos.mp4",
       "media_type": "photo"
     },
     "install:linux": {
-      "text": "1) Install the <a href=\"https://github.com/MatsuriDayo/nekoray/releases/download/4.0.1/nekoray-4.0.1-2024-12-12-linux64.zip\">NekoRay</a> app;\n2) Extract the archive, run the binary file;\n3) In the toolbar, select the TUN Mode checkbox;\n4) Copy your new access key, go to the app and press Ctrl + V;\n5) Right-click on the key in the list → Start — done! You're back online!",
+      "text": "1) Install <a href=\"https://github.com/MatsuriDayo/nekoray/releases/download/4.0.1/nekoray-4.0.1-2024-12-12-linux64.zip\">NekoRay</a> app;\n2) Unpack archive, run binary file;\n3) Select TUN Mode checkbox in toolbar;\n4) Copy your new access key, go to app and press Ctrl + V combination;\n5) Right-click on key in list → Start — done! You're online again!",
       "media_path": "media/install_linux.mp4",
       "media_type": "photo"
     }
   },
   "subject_labels": {
-    "main:keys": "🔑 None of the keys are working?",
+    "main:keys": "🔑 None of the keys working?",
     "main:renew": "💸 How to renew subscription?",
-    "main:invite": "👥How to invite a person?",
+    "main:invite": "👥How to invite someone?",
     "install:ios": "🍎iOS",
     "install:android": "🤖Android",
     "install:windows": "🖥️Windows",
@@ -159,23 +83,23 @@
   },
   "messages": {
     "support_reminder": "❓If you need help, describe the problem in one message — we'll forward it to support.",
-    "welcome": "👋Hello! We're ready to answer any of your questions. If you didn't find it in this bot, submit a request or write to @modern_1mctech",
-    "stats_unauthorized": "Command is only available to the administrator.",
-    "support_cancel": "Request canceled.",
-    "support_non_text": "Please describe the problem in text.",
-    "support_submit_thanks": "Thank you! We have received your request.",
+    "welcome": "👋Hello! We're ready to answer any question. If you didn't find it in this bot, leave a request or write to @modern_1mctech",
+    "stats_unauthorized": "Command available only to administrator.",
+    "support_cancel": "Request cancelled.",
+    "support_non_text": "Describe the problem with text.",
+    "support_submit_thanks": "Thank you! We've received your request.",
     "support_start_prompt": "Describe the problem in one message — we'll forward it to support.",
-    "support_resolved": "Great! If you have any questions — write to us anytime.",
-    "support_cancel_callback": "🔴Request canceled.",
-    "install_menu_prompt": "⚙️Select platform: ",
-    "main_menu": "👋Hello! We're ready to answer any of your questions. If you didn't find it in this bot, submit a request or write to @modern_1mctech",
-    "feedback_thanks": "✅Thank you for your feedback!",
+    "support_resolved": "Great! If questions arise — write to us anytime.",
+    "support_cancel_callback": "🔴Request cancelled.",
+    "install_menu_prompt": "⚙️Choose platform: ",
+    "main_menu": "👋Hello! We're ready to answer any question. If you didn't find it in this bot, leave a request or write to @modern_1mctech",
+    "feedback_thanks": "✅Thank you for feedback!",
     "fallback_callback": "Unknown command.",
-    "fallback_message": "Please select an item from the menu.",
+    "fallback_message": "Please select item from menu.",
     "support_cancel_trigger": "cancel",
     "feedback_helpful_button": "👍helped",
     "feedback_unhelpful_button": "👎didn't help",
-    "back_to_menu_button": "Back to menu",
+    "back_to_menu_button": "Return to menu",
     "support_payload_template": "#SUPREQUEST #USER{user_id}\nName: {username}\nText: {text}",
     "support_payload_non_text_fallback": "<non-text message>",
     "stats_header": "Statistics for 7 days:",

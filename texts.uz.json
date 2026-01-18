@@ -1,156 +1,80 @@
 {
   "menus": {
     "main": [
-      [
-        [
-          "⭐️Biron bir kalit ishlamayapti",
-          "main:keys"
-        ]
-      ],
-      [
-        [
-          "⭐️Ilovani qanday o'rnatish mumkin",
-          "main:install"
-        ]
-      ],
-      [
-        [
-          "⭐️Obunani qanday uzaytirish mumkin",
-          "main:renew"
-        ]
-      ],
-      [
-        [
-          "⭐️Biron kishini qanday taklif qilish mumkin",
-          "main:invite"
-        ]
-      ],
-      [
-        [
-          "⭐️Savolingizga javob topolmadingizmi",
-          "support:start"
-        ]
-      ]
+      [["⭐️Hech bir kalit ishlamayapti", "main:keys"]],
+      [["⭐️Ilovani qanday o'rnatish mumkin", "main:install"]],
+      [["⭐️Obunani qanday uzaytirish mumkin", "main:renew"]],
+      [["⭐️Kimnidir qanday taklif qilish mumkin", "main:invite"]],
+      [["⭐️Savolingizga javob topa olmadingiz", "support:start"]]
     ],
     "install": [
       [
-        [
-          "🍎iOS",
-          "install:ios"
-        ],
-        [
-          "🤖Android",
-          "install:android"
-        ]
+        ["🍎iOS", "install:ios"],
+        ["🤖Android", "install:android"]
       ],
       [
-        [
-          "🖥️Windows",
-          "install:windows"
-        ],
-        [
-          "🍎macOS",
-          "install:macos"
-        ]
+        ["🖥️Windows", "install:windows"],
+        ["🍎macOS", "install:macos"]
       ],
-      [
-        [
-          "🐧Linux",
-          "install:linux"
-        ]
-      ],
-      [
-        [
-          "◀Ortga",
-          "install:back"
-        ]
-      ],
-      [
-        [
-          "😔Javob menga mos kelmayapti",
-          "support:start"
-        ]
-      ]
+      [["🐧Linux", "install:linux"]],
+      [["◀Ortga", "install:back"]],
+      [["😔Javob menga yordam bermayapti", "support:start"]]
     ],
-    "support": [
-      [
-        [
-          "Bekor qilish",
-          "support:cancel"
-        ]
-      ]
-    ],
+    "support": [[["Bekor qilish", "support:cancel"]]],
     "support_reminder": [
-      [
-        [
-          "👍Muammo hal qilindi",
-          "support:resolved"
-        ]
-      ],
-      [
-        [
-          "👎Bekor qilish",
-          "support:cancel"
-        ]
-      ]
+      [["👍Muammo hal qilindi", "support:resolved"]],
+      [["👎Bekor qilish", "support:cancel"]]
     ],
-    "answer": [
-      [
-        [
-          "📋Asosiy menyu",
-          "main:menu"
-        ]
-      ]
-    ]
+    "answer": [[["📋Asosiy menyu", "main:menu"]]]
   },
   "answers": {
     "main:keys": {
-      "text": "1) Internet VPN-siz ishlashini tekshiring.\n2) Agar muammo davom etsa, @modern_1mctech qo'llab-quvvatlash xizmatidan yangi kalit so'rang.",
+      "text": "1) Internet VPNsiz ishlashini tekshiring.\n2) Ilovada \"spidometr\" belgisini bosing va har bir lokatsiya bilan aloqani tekshiring.\n3) Muammo davom etsa, @modern_1mctech qo'llab-quvvatlash xizmatidan yangi kalit so'rang",
       "media_path": "media/faq1.png",
       "media_type": "photo"
     },
     "main:renew": {
-      "text": "Obunani menejer orqali yoki shaxsiy kabinetda uzaytirish mumkin.\nAgar to'lov havolangiz bo'lmasa, qo'llab-quvvatlashga yozing — biz uni yuboramiz.",
+      "text": "Obunani @LockDown_VPN_Bbot orqali uzaytirish mumkin.\n\"Bosh sahifa\" → \"Obuna olish\" bosing. Obuna muddatini, to'lov usulini, obuna kimga mo'ljallanganligini tanlang va to'lang.\nMuvaffaqiyatli to'lovdan keyin kalitlaringiz uzaytiriladi, ularni qayta qo'shish shart emas.",
       "media_path": "media/faq2.png",
       "media_type": "photo"
     },
     "main:invite": {
-      "text": "@LockDown_VPN_Bbot botini oching → Asosiy → Do'stni taklif qilish.\nTaklif havolasini nusxalab oling va odamga yuboring.",
+      "text": "@LockDown_VPN_Bbot botini oching → Bosh sahifa → Do'st taklif qilish.\nTaklif havolasini nusxalab, odamga yuboring.",
       "media_path": "media/faq3.png",
       "media_type": "photo"
     }
   },
   "install_answers": {
     "install:ios": {
-      "text": "1) App Store-ni oching va Happ ilovasini o'rnating - <a href=\"https://apps.apple.com/us/app/happ-proxy-utility/id6504287215\">o'rnatish havolasi</a>.\n2) \"Mening obunam\" bo'limida obunangizni nusxalang\n3) Happ ilovasida \"Buferdan joylash\" tugmasini bosing\n4) Tabriklaymiz, obunangiz qo'shildi! \"Tachometr\" belgisi orqali har bir lokatsiya bilan ulanish tezligini tekshirishingiz mumkin. Qaysi lokatsiyada qiymat past bo'lsa — u lokatsiya hozirda yaxshiroq ishlaydi\n5) Lokatsiyani tanlang va ulanish tugmasini bosing.",
+      "text": "1) App Store ochib, Happ ilovasini o'rnating - <a href=\"https://apps.apple.com/us/app/happ-proxy-utility/id6504287215\">o'rnatish havolasi</a>.\n2) \"Mening obunam\" bo'limida obunangizni nusxalang\n3) Happ ilovasida \"Buferdan qo'yish\" bosing\n4) Tabriklaymiz, obuna qo'shildi! \"Spidometr\" belgisini bosish orqali har bir lokatsiya bilan aloqa tezligini tekshirishingiz mumkin. Qiymat pastroq bo'lgan joy - o'sha lokatsiya hozirda yaxshi ishlaydi\n5) Lokatsiyani tanlang va ulanish bosing.",
       "media_path": "media/install_ios.mp4",
       "media_type": "photo"
     },
     "install:android": {
-      "text": "1) Google Play-dan ilovani o'rnating - <a href=\"https://play.google.com/store/apps/details?id=com.happproxy&pcampaignid=web_share\">o'rnatish havolasi</a>.\n2) \"Mening obunam\" bo'limida obunangizni nusxalang\n3) Happ ilovasida \"Buferdan joylash\" tugmasini bosing\n4) Tabriklaymiz, obunangiz qo'shildi! \"Tachometr\" belgisi orqali har bir lokatsiya bilan ulanish tezligini tekshirishingiz mumkin. Qaysi lokatsiyada qiymat past bo'lsa — u lokatsiya hozirda yaxshiroq ishlaydi\n5) Lokatsiyani tanlang va ulanish tugmasini bosing.",
+      "text": "1) Google Play-dan ilovani o'rnating - <a href=\"https://play.google.com/store/apps/details?id=com.happproxy&pcampaignid=web_share\">o'rnatish havolasi</a>.\n2) \"Mening obunam\" bo'limida obunangizni nusxalang\n3) Happ ilovasida \"Buferdan qo'yish\" bosing\n4) Tabriklaymiz, obuna qo'shildi! \"Spidometr\" belgisini bosish orqali har bir lokatsiya bilan aloqa tezligini tekshirishingiz mumkin. Qiymat pastroq bo'lgan joy - o'sha lokatsiya hozirda yaxshi ishlaydi\n5) Lokatsiyani tanlang va ulanish bosing.",
       "media_path": "media/install_android.mp4",
       "media_type": "photo"
     },
     "install:windows": {
-      "text": "1) Windows uchun ilovani o'rnating. - <a href=\"https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe\">o'rnatish havolasi</a>\n2) \"Mening obunam\" bo'limida obunangizni nusxalang\n3) Happ ilovasida \"Buferdan joylash\" tugmasini bosing\n4) Tabriklaymiz, obunangiz qo'shildi! \"Tachometr\" belgisi orqali har bir lokatsiya bilan ulanish tezligini tekshirishingiz mumkin. Qaysi lokatsiyada qiymat past bo'lsa — u lokatsiya hozirda yaxshiroq ishlaydi\n5) Lokatsiyani tanlang va ulanish tugmasini bosing.",
+      "text": "1) Windows uchun ilovani o'rnating - <a href=\"https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe\">o'rnatish havolasi</a>\n2) \"Mening obunam\" bo'limida obunangizni nusxalang\n3) Happ ilovasida \"Buferdan qo'yish\" bosing\n4) Tabriklaymiz, obuna qo'shildi! \"Spidometr\" belgisini bosish orqali har bir lokatsiya bilan aloqa tezligini tekshirishingiz mumkin. Qiymat pastroq bo'lgan joy - o'sha lokatsiya hozirda yaxshi ishlaydi\n5) Lokatsiyani tanlang va ulanish bosing.",
       "media_path": "media/install_windows.mp4",
       "media_type": "photo"
     },
     "install:macos": {
-      "text": "1) App Store-ni oching va Happ ilovasini o'rnating - <a href=\"https://apps.apple.com/us/app/happ-proxy-utility/id6504287215\">o'rnatish havolasi</a>.\n2) \"Mening obunam\" bo'limida obunangizni nusxalang\n3) Happ ilovasida \"Buferdan joylash\" tugmasini bosing\n4) Tabriklaymiz, obunangiz qo'shildi! \"Tachometr\" belgisi orqali har bir lokatsiya bilan ulanish tezligini tekshirishingiz mumkin. Qaysi lokatsiyada qiymat past bo'lsa — u lokatsiya hozirda yaxshiroq ishlaydi\n5) Lokatsiyani tanlang va ulanish tugmasini bosing.",
+      "text": "1) App Store ochib, Happ ilovasini o'rnating - <a href=\"https://apps.apple.com/us/app/happ-proxy-utility/id6504287215\">o'rnatish havolasi</a>.\n2) \"Mening obunam\" bo'limida obunangizni nusxalang\n3) Happ ilovasida \"Buferdan qo'yish\" bosing\n4) Tabriklaymiz, obuna qo'shildi! \"Spidometr\" belgisini bosish orqali har bir lokatsiya bilan aloqa tezligini tekshirishingiz mumkin. Qiymat pastroq bo'lgan joy - o'sha lokatsiya hozirda yaxshi ishlaydi\n5) Lokatsiyani tanlang va ulanish bosing.",
       "media_path": "media/install_macos.mp4",
       "media_type": "photo"
     },
     "install:linux": {
-      "text": "1) <a href=\"https://github.com/MatsuriDayo/nekoray/releases/download/4.0.1/nekoray-4.0.1-2024-12-12-linux64.zip\">NekoRay</a> ilovasini o'rnating;\n2) Arxivni oching, binary faylni ishga tushiring;\n3) Asboblar panelidan TUN Mode belgisini tanlang;\n4) yangi kirish kalitingizni nusxalang, ilovaga o'ting va Ctrl + V tugmalarini bosing;\n5) Ro'yxatdagi kalitga sichqoncha o'ng tugmasi bilan bosing → Ishga tushirish — tayyor! Siz yana tarmoqdasiz!",
+      "text": "1) <a href=\"https://github.com/MatsuriDayo/nekoray/releases/download/4.0.1/nekoray-4.0.1-2024-12-12-linux64.zip\">NekoRay</a> ilovasini o'rnating;\n2) Arxivni oching, binary faylini ishga tushiring;\n3) Vositalar panelida TUN rejimi qutisini tanlang;\n4) Yangi kirish kalitingizni nusxalang, ilovaga o'ting va Ctrl + V kombinatsiyasini bosing;\n5) Ro'yxatdagi kalit ustida sichqonchaning o'ng tugmasi → Ishga tushirish — tayyor! Siz yana onlaynsiz!",
       "media_path": "media/install_linux.mp4",
       "media_type": "photo"
     }
   },
   "subject_labels": {
-    "main:keys": "🔑 Biron bir kalit ishlamayaptimi?",
+    "main:keys": "🔑 Hech bir kalit ishlamayaptimi?",
     "main:renew": "💸 Obunani qanday uzaytirish mumkin?",
-    "main:invite": "👥Kishini qanday taklif qilish mumkin?",
+    "main:invite": "👥Kimnidir qanday taklif qilish mumkin?",
     "install:ios": "🍎iOS",
     "install:android": "🤖Android",
     "install:windows": "🖥️Windows",
@@ -158,33 +82,33 @@
     "install:linux": "🐧Linux"
   },
   "messages": {
-    "support_reminder": "❓Yordam kerak bo'lsa, muammoni bitta xabarda tasvirlang — biz uni qo'llab-quvvatlashga yo'naltiramiz.",
-    "welcome": "👋Salom! Biz har qanday savolingizga javob berishga tayyormiz. Agar uni ushbu botda topmagan bo'lsangiz, murojaat qoldiring yoki @modern_1mctech ga yozing",
-    "stats_unauthorized": "Bu buyruq faqat administrator uchun mavjud.",
+    "support_reminder": "❓Yordam kerak bo'lsa, muammoni bitta xabar bilan tasvirlang — biz uni qo'llab-quvvatlash xizmatiga yuboramiz.",
+    "welcome": "👋Salom! Biz har qanday savolga javob berishga tayyormiz. Agar uni ushbu botda topa olmagan bo'lsangiz, so'rov qoldiring yoki @modern_1mctech yozing",
+    "stats_unauthorized": "Buyruq faqat administrator uchun mavjud.",
     "support_cancel": "So'rov bekor qilindi.",
-    "support_non_text": "Muammoni matnda tasvirlang.",
-    "support_submit_thanks": "Rahmat! Biz sizning murojaatingizni qabul qildik.",
-    "support_start_prompt": "Muammoni bitta xabarda tasvirlang — biz uni qo'llab-quvvatlashga yo'naltiramiz.",
-    "support_resolved": "Ajoyib! Agar savollar paydo bo'lsa — istalgan vaqtda bizga yozing.",
+    "support_non_text": "Muammoni matn bilan tasvirlang.",
+    "support_submit_thanks": "Rahmat! Biz so'rovingizni oldik.",
+    "support_start_prompt": "Muammoni bitta xabar bilan tasvirlang — biz uni qo'llab-quvvatlash xizmatiga yuboramiz.",
+    "support_resolved": "Ajoyib! Agar savollar paydo bo'lsa — bizga istalgan vaqt yozing.",
     "support_cancel_callback": "🔴So'rov bekor qilindi.",
     "install_menu_prompt": "⚙️Platformani tanlang: ",
-    "main_menu": "👋Salom! Biz har qanday savolingizga javob berishga tayyormiz. Agar uni ushbu botda topmagan bo'lsangiz, murojaat qoldiring yoki @modern_1mctech ga yozing",
-    "feedback_thanks": "✅Fikr-mulohazangiz uchun rahmat!",
+    "main_menu": "👋Salom! Biz har qanday savolga javob berishga tayyormiz. Agar uni ushbu botda topa olmagan bo'lsangiz, so'rov qoldiring yoki @modern_1mctech yozing",
+    "feedback_thanks": "✅Fikr-mulohaza uchun rahmat!",
     "fallback_callback": "Noma'lum buyruq.",
-    "fallback_message": "Iltimos, menyudan bandni tanlang.",
-    "support_cancel_trigger": "bekor qilish",
+    "fallback_message": "Iltimos, menyudan elementni tanlang.",
+    "support_cancel_trigger": "bekor",
     "feedback_helpful_button": "👍yordam berdi",
     "feedback_unhelpful_button": "👎yordam bermadi",
     "back_to_menu_button": "Menyuga qaytish",
     "support_payload_template": "#SUPREQUEST #USER{user_id}\nIsm: {username}\nMatn: {text}",
-    "support_payload_non_text_fallback": "<matnli bo'lmagan xabar>",
-    "stats_header": "Oxirgi 7 kun uchun statistika:",
+    "support_payload_non_text_fallback": "<matn bo'lmagan xabar>",
+    "stats_header": "7 kun uchun statistika:",
     "stats_total": "Hodisalar: {total}",
     "stats_unique_users": "No'yob foydalanuvchilar: {unique_users}",
     "stats_by_event_title": "Hodisalar bo'yicha:",
     "stats_top_faq_title": "Top FAQ:",
     "stats_top_install_title": "Top o'rnatishlar:",
-    "stats_feedback": "Sharhlar: 👍yordam berdi {helpful}, 👎yordam bermadi {unhelpful}",
+    "stats_feedback": "Fikrlar: 👍yordam berdi {helpful}, 👎yordam bermadi {unhelpful}",
     "unknown_subject": "?"
   }
 }
