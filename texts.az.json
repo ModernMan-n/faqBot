@@ -1,31 +1,113 @@
 {
   "menus": {
     "main": [
-      [["⭐️Heç bir açar işləmir", "main:keys"]],
-      [["⭐️Tətbiqi necə quraşdırmaq olar", "main:install"]],
-      [["⭐️Abunəliyi necə uzatmaq olar", "main:renew"]],
-      [["⭐️Kimisə necə dəvət etmək olar", "main:invite"]],
-      [["⭐️Sualınıza cavab tapa bilmədiniz", "support:start"]]
+      [
+        [
+          "⭐️Heç bir açar işləmir",
+          "main:keys"
+        ]
+      ],
+      [
+        [
+          "⭐️Tətbiqi necə quraşdırmaq olar",
+          "main:install"
+        ]
+      ],
+      [
+        [
+          "⭐️Abunəliyi necə uzatmaq olar",
+          "main:renew"
+        ]
+      ],
+      [
+        [
+          "⭐️Kimisə necə dəvət etmək olar",
+          "main:invite"
+        ]
+      ],
+      [
+        [
+          "⭐️Abunəliyimə neçə cihaz qoşula bilər?",
+          "main:devices"
+        ]
+      ],
+      [
+        [
+          "⭐️Sualınıza cavab tapa bilmədiniz",
+          "support:start"
+        ]
+      ]
     ],
     "install": [
       [
-        ["🍎iOS", "install:ios"],
-        ["🤖Android", "install:android"]
+        [
+          "🍎iOS",
+          "install:ios"
+        ],
+        [
+          "🤖Android",
+          "install:android"
+        ]
       ],
       [
-        ["🖥️Windows", "install:windows"],
-        ["🍎macOS", "install:macos"]
+        [
+          "🖥️Windows",
+          "install:windows"
+        ],
+        [
+          "🍎macOS",
+          "install:macos"
+        ]
       ],
-      [["🐧Linux", "install:linux"]],
-      [["◀Geri", "install:back"]],
-      [["😔Cavab mənə kömək etmir", "support:start"]]
+      [
+        [
+          "🐧Linux",
+          "install:linux"
+        ]
+      ],
+      [
+        [
+          "◀Geri",
+          "install:back"
+        ]
+      ],
+      [
+        [
+          "😔Cavab mənə kömək etmir",
+          "support:start"
+        ]
+      ]
     ],
-    "support": [[["Ləğv et", "support:cancel"]]],
+    "support": [
+      [
+        [
+          "Ləğv et",
+          "support:cancel"
+        ]
+      ]
+    ],
     "support_reminder": [
-      [["👍Problem həll olundu", "support:resolved"]],
-      [["👎Ləğv et", "support:cancel"]]
+      [
+        [
+          "👍Problem həll olundu",
+          "support:resolved"
+        ]
+      ],
+      [
+        [
+          "👎Ləğv et",
+          "support:cancel"
+        ]
+      ]
     ],
-    "answer": [[["📋Əsas menyu", "main:menu"]]]
+    "answer": [
+      [
+        [
+          "📋Əsas menyu",
+          "main:menu"
+        ]
+      ]
+    ]
   },
   "answers": {
     "main:keys": {
@@ -42,6 +124,9 @@
       "text": "@LockDown_VPN_Bbot botunu açın → Ev → Dost dəvət et.\nDəvət linkini kopyalayın və şəxsə göndərin.",
       "media_path": "media/faq3.png",
       "media_type": "photo"
+    },
+    "main:devices": {
+      "text": "Bir abunəliyə 4 cihazadək qoşa bilərsiniz. Əlavə cihazlar üçün support@modern_1mctech ünvanına yazın və ya müraciət edin."
     }
   },
   "install_answers": {
@@ -79,7 +164,8 @@
     "install:android": "🤖Android",
     "install:windows": "🖥️Windows",
     "install:macos": "🍎macOS",
-    "install:linux": "🐧Linux"
+    "install:linux": "🐧Linux",
+    "main:devices": "Abunəliyimə neçə cihaz qoşula bilər?"
   },
   "messages": {
     "support_reminder": "❑Kömək lazımdırsa, problemi bir mesajla təsvir edin — biz onu dəstək xidmətinə ötürəcəyik.",
@@ -115,6 +201,8 @@
     "stats_compare_helpful": "👍kömək etdi: {change}",
     "stats_compare_unhelpful": "👎kömək etmədi: {change}",
     "stats_compare_na": "n/a",
-    "unknown_subject": "?"
+    "unknown_subject": "?",
+    "leave_request_button": "M?raci?t burax?n",
+    "back_button": "Geriy?"
   }
 }

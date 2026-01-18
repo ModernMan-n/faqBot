@@ -308,7 +308,29 @@ def get_localized_for_user(user) -> Localized:
     return get_localized_by_lang(get_user_lang(user))
 
 
+SUPPORT_ANSWER_SUBJECTS = {"main:devices"}
+
+
 def build_answer_menu(localized: Localized, subject: str) -> InlineKeyboardMarkup:
+    if subject in SUPPORT_ANSWER_SUBJECTS:
+        return build_inline_keyboard(
+            [
+                [
+                    (localized.messages["leave_request_button"], SUPPORT_START),
+                    (localized.messages["back_button"], MAIN_MENU_OPEN),
+                ],
+                [
+                    (
+                        localized.messages["feedback_helpful_button"],
+                        f"{FEEDBACK_HELPFUL_PREFIX}{subject}",
+                    ),
+                    (
+                        localized.messages["feedback_unhelpful_button"],
+                        f"{FEEDBACK_UNHELPFUL_PREFIX}{subject}",
+                    ),
+                ],
+            ]
+        )
     return build_inline_keyboard(
         [
             [
@@ -324,6 +346,21 @@ def build_answer_menu(localized: Localized, subject: str) -> InlineKeyboardMarku
             [(localized.messages["back_to_menu_button"], MAIN_MENU_OPEN)],
         ]
     )
+
+
+def build_post_feedback_menu(
+    localized: Localized, subject: Optional[str]
+) -> InlineKeyboardMarkup:
+    if subject in SUPPORT_ANSWER_SUBJECTS:
+        return build_inline_keyboard(
+            [
+                [
+                    (localized.messages["leave_request_button"], SUPPORT_START),
+                    (localized.messages["back_button"], MAIN_MENU_OPEN),
+                ]
+            ]
+        )
+    return localized.menus["answer"]
 
 
 MAIN_KEYS = "main:keys"
@@ -852,7 +889,9 @@ async def main() -> None:
         localized = get_localized_for_user(call.from_user)
         if call.message:
             try:
-                await call.message.edit_reply_markup(reply_markup=localized.menus["answer"])
+                await call.message.edit_reply_markup(
+                    reply_markup=build_post_feedback_menu(localized, subject)
+                )
             except Exception:
                 logger.warning("Failed to update feedback menu")
         await call.answer(localized.messages["feedback_thanks"])
@@ -864,7 +903,9 @@ async def main() -> None:
         localized = get_localized_for_user(call.from_user)
         if call.message:
             try:
-                await call.message.edit_reply_markup(reply_markup=localized.menus["answer"])
+                await call.message.edit_reply_markup(
+                    reply_markup=build_post_feedback_menu(localized, subject)
+                )
             except Exception:
                 logger.warning("Failed to update feedback menu")
         await call.answer(localized.messages["feedback_thanks"])

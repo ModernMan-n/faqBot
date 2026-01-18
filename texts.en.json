@@ -1,31 +1,113 @@
 {
   "menus": {
     "main": [
-      [["⭐️None of the keys are working", "main:keys"]],
-      [["⭐️How to install the app", "main:install"]],
-      [["⭐️How to renew subscription", "main:renew"]],
-      [["⭐️How to invite someone", "main:invite"]],
-      [["⭐️Didn't find answer to your question", "support:start"]]
+      [
+        [
+          "⭐️None of the keys are working",
+          "main:keys"
+        ]
+      ],
+      [
+        [
+          "⭐️How to install the app",
+          "main:install"
+        ]
+      ],
+      [
+        [
+          "⭐️How to renew subscription",
+          "main:renew"
+        ]
+      ],
+      [
+        [
+          "⭐️How to invite someone",
+          "main:invite"
+        ]
+      ],
+      [
+        [
+          "⭐️ How many devices can I connect to the subscription?",
+          "main:devices"
+        ]
+      ],
+      [
+        [
+          "⭐️Didn't find answer to your question",
+          "support:start"
+        ]
+      ]
     ],
     "install": [
       [
-        ["🍎iOS", "install:ios"],
-        ["🤖Android", "install:android"]
+        [
+          "🍎iOS",
+          "install:ios"
+        ],
+        [
+          "🤖Android",
+          "install:android"
+        ]
       ],
       [
-        ["🖥️Windows", "install:windows"],
-        ["🍎macOS", "install:macos"]
+        [
+          "🖥️Windows",
+          "install:windows"
+        ],
+        [
+          "🍎macOS",
+          "install:macos"
+        ]
       ],
-      [["🐧Linux", "install:linux"]],
-      [["◀Back", "install:back"]],
-      [["😔Answer doesn't help me", "support:start"]]
+      [
+        [
+          "🐧Linux",
+          "install:linux"
+        ]
+      ],
+      [
+        [
+          "◀Back",
+          "install:back"
+        ]
+      ],
+      [
+        [
+          "😔Answer doesn't help me",
+          "support:start"
+        ]
+      ]
     ],
-    "support": [[["Cancel", "support:cancel"]]],
+    "support": [
+      [
+        [
+          "Cancel",
+          "support:cancel"
+        ]
+      ]
+    ],
     "support_reminder": [
-      [["👍Issue resolved", "support:resolved"]],
-      [["👎Cancel", "support:cancel"]]
+      [
+        [
+          "👍Issue resolved",
+          "support:resolved"
+        ]
+      ],
+      [
+        [
+          "👎Cancel",
+          "support:cancel"
+        ]
+      ]
     ],
-    "answer": [[["📋Main Menu", "main:menu"]]]
+    "answer": [
+      [
+        [
+          "📋Main Menu",
+          "main:menu"
+        ]
+      ]
+    ]
   },
   "answers": {
     "main:keys": {
@@ -42,6 +124,9 @@
       "text": "Open bot @LockDown_VPN_Bbot → Home → Invite friend.\nCopy the invitation link and send it to the person.",
       "media_path": "media/faq3.png",
       "media_type": "photo"
+    },
+    "main:devices": {
+      "text": "You can connect up to 4 devices to your subscription. If you need more devices, contact support @modern_1mctech or leave a request."
     }
   },
   "install_answers": {
@@ -79,7 +164,8 @@
     "install:android": "🤖Android",
     "install:windows": "🖥️Windows",
     "install:macos": "🍎macOS",
-    "install:linux": "🐧Linux"
+    "install:linux": "🐧Linux",
+    "main:devices": "How many devices can I connect to the subscription?"
   },
   "messages": {
     "support_reminder": "❓If you need help, describe the problem in one message — we'll forward it to support.",
@@ -115,6 +201,8 @@
     "stats_compare_helpful": "👍helped: {change}",
     "stats_compare_unhelpful": "👎didn't help: {change}",
     "stats_compare_na": "n/a",
-    "unknown_subject": "?"
+    "unknown_subject": "?",
+    "leave_request_button": "Leave a request",
+    "back_button": "Back"
   }
 }

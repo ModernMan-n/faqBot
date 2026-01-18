@@ -1,31 +1,113 @@
 {
   "menus": {
     "main": [
-      [["⭐️Hech bir kalit ishlamayapti", "main:keys"]],
-      [["⭐️Ilovani qanday o'rnatish mumkin", "main:install"]],
-      [["⭐️Obunani qanday uzaytirish mumkin", "main:renew"]],
-      [["⭐️Kimnidir qanday taklif qilish mumkin", "main:invite"]],
-      [["⭐️Savolingizga javob topa olmadingiz", "support:start"]]
+      [
+        [
+          "⭐️Hech bir kalit ishlamayapti",
+          "main:keys"
+        ]
+      ],
+      [
+        [
+          "⭐️Ilovani qanday o'rnatish mumkin",
+          "main:install"
+        ]
+      ],
+      [
+        [
+          "⭐️Obunani qanday uzaytirish mumkin",
+          "main:renew"
+        ]
+      ],
+      [
+        [
+          "⭐️Kimnidir qanday taklif qilish mumkin",
+          "main:invite"
+        ]
+      ],
+      [
+        [
+          "⭐️ Obunamga nechta qurilma ulashim mumkin?",
+          "main:devices"
+        ]
+      ],
+      [
+        [
+          "⭐️Savolingizga javob topa olmadingiz",
+          "support:start"
+        ]
+      ]
     ],
     "install": [
       [
-        ["🍎iOS", "install:ios"],
-        ["🤖Android", "install:android"]
+        [
+          "🍎iOS",
+          "install:ios"
+        ],
+        [
+          "🤖Android",
+          "install:android"
+        ]
       ],
       [
-        ["🖥️Windows", "install:windows"],
-        ["🍎macOS", "install:macos"]
+        [
+          "🖥️Windows",
+          "install:windows"
+        ],
+        [
+          "🍎macOS",
+          "install:macos"
+        ]
       ],
-      [["🐧Linux", "install:linux"]],
-      [["◀Ortga", "install:back"]],
-      [["😔Javob menga yordam bermayapti", "support:start"]]
+      [
+        [
+          "🐧Linux",
+          "install:linux"
+        ]
+      ],
+      [
+        [
+          "◀Ortga",
+          "install:back"
+        ]
+      ],
+      [
+        [
+          "😔Javob menga yordam bermayapti",
+          "support:start"
+        ]
+      ]
     ],
-    "support": [[["Bekor qilish", "support:cancel"]]],
+    "support": [
+      [
+        [
+          "Bekor qilish",
+          "support:cancel"
+        ]
+      ]
+    ],
     "support_reminder": [
-      [["👍Muammo hal qilindi", "support:resolved"]],
-      [["👎Bekor qilish", "support:cancel"]]
+      [
+        [
+          "👍Muammo hal qilindi",
+          "support:resolved"
+        ]
+      ],
+      [
+        [
+          "👎Bekor qilish",
+          "support:cancel"
+        ]
+      ]
     ],
-    "answer": [[["📋Asosiy menyu", "main:menu"]]]
+    "answer": [
+      [
+        [
+          "📋Asosiy menyu",
+          "main:menu"
+        ]
+      ]
+    ]
   },
   "answers": {
     "main:keys": {
@@ -42,6 +124,9 @@
       "text": "@LockDown_VPN_Bbot botini oching → Bosh sahifa → Do'st taklif qilish.\nTaklif havolasini nusxalab, odamga yuboring.",
       "media_path": "media/faq3.png",
       "media_type": "photo"
+    },
+    "main:devices": {
+      "text": "Bir obunaga 4 tagacha qurilma ulashingiz mumkin. Agar kengaytirish kerak bo'lsa, @modern_1mctech manziliga yozishingiz yoki so'rov qoldirishingiz mumkin."
     }
   },
   "install_answers": {
@@ -79,7 +164,8 @@
     "install:android": "🤖Android",
     "install:windows": "🖥️Windows",
     "install:macos": "🍎macOS",
-    "install:linux": "🐧Linux"
+    "install:linux": "🐧Linux",
+    "main:devices": "Obunamga nechta qurilma ulashim mumkin?"
   },
   "messages": {
     "support_reminder": "❓Yordam kerak bo'lsa, muammoni bitta xabar bilan tasvirlang — biz uni qo'llab-quvvatlash xizmatiga yuboramiz.",
@@ -115,6 +201,8 @@
     "stats_compare_helpful": "👍yordam berdi: {change}",
     "stats_compare_unhelpful": "👎yordam bermadi: {change}",
     "stats_compare_na": "n/a",
-    "unknown_subject": "?"
+    "unknown_subject": "?",
+    "leave_request_button": "Murojaat qoldirish",
+    "back_button": "Orqaga"
   }
 }
