@@ -109,6 +109,12 @@
     "stats_top_faq_title": "Беҳтарин FAQ:",
     "stats_top_install_title": "Беҳтарин насбҳо:",
     "stats_feedback": "Фикрҳо: 👍кумак кард {helpful}, 👎кумак накард {unhelpful}",
+    "stats_compare_title": "Тағйирот нисбат ба ҳафтаи гузашта:",
+    "stats_compare_total": "Ҳодисаҳо: {change}",
+    "stats_compare_unique_users": "Истифодабарандагони ягона: {change}",
+    "stats_compare_helpful": "👍кумак кард: {change}",
+    "stats_compare_unhelpful": "👎кумак накард: {change}",
+    "stats_compare_na": "n/a",
     "unknown_subject": "?"
   }
 }

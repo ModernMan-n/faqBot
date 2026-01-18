@@ -140,64 +140,66 @@ def record_event(
         logger.exception("Failed to record analytics event: %s", event_type)
 
 
-def get_stats(db_path: str, days: int = 7) -> dict:
-    since = (datetime.now(timezone.utc) - timedelta(days=days)).isoformat()
+def get_stats_range(db_path: str, start: datetime, end: datetime) -> dict:
+    start_ts = start.isoformat()
+    end_ts = end.isoformat()
     conn = sqlite3.connect(db_path)
     try:
         cursor = conn.cursor()
         total = cursor.execute(
-            "SELECT COUNT(*) FROM events WHERE ts >= ?",
-            (since,),
+            "SELECT COUNT(*) FROM events WHERE ts >= ? AND ts < ?",
+            (start_ts, end_ts),
         ).fetchone()[0]
         unique_users = cursor.execute(
-            "SELECT COUNT(DISTINCT user_id) FROM events WHERE ts >= ? AND user_id IS NOT NULL",
-            (since,),
+            "SELECT COUNT(DISTINCT user_id) FROM events WHERE ts >= ? AND ts < ? AND user_id IS NOT NULL",
+            (start_ts, end_ts),
         ).fetchone()[0]
         by_event = cursor.execute(
             """
             SELECT event_type, COUNT(*)
             FROM events
-            WHERE ts >= ?
+            WHERE ts >= ? AND ts < ?
             GROUP BY event_type
             ORDER BY COUNT(*) DESC
             """,
-            (since,),
+            (start_ts, end_ts),
         ).fetchall()
         top_faq = cursor.execute(
             """
             SELECT subject, COUNT(*)
             FROM events
-            WHERE event_type = ? AND ts >= ?
+            WHERE event_type = ? AND ts >= ? AND ts < ?
             GROUP BY subject
             ORDER BY COUNT(*) DESC
             LIMIT 5
             """,
-            (EVENT_FAQ_ANSWER, since),
+            (EVENT_FAQ_ANSWER, start_ts, end_ts),
         ).fetchall()
         top_install = cursor.execute(
             """
             SELECT subject, COUNT(*)
             FROM events
-            WHERE event_type = ? AND ts >= ?
+            WHERE event_type = ? AND ts >= ? AND ts < ?
             GROUP BY subject
             ORDER BY COUNT(*) DESC
             LIMIT 5
             """,
-            (EVENT_INSTALL_ANSWER, since),
+            (EVENT_INSTALL_ANSWER, start_ts, end_ts),
         ).fetchall()
         helpful = cursor.execute(
-            "SELECT COUNT(*) FROM events WHERE event_type = ? AND ts >= ?",
-            (EVENT_FEEDBACK_HELPFUL, since),
+            "SELECT COUNT(*) FROM events WHERE event_type = ? AND ts >= ? AND ts < ?",
+            (EVENT_FEEDBACK_HELPFUL, start_ts, end_ts),
         ).fetchone()[0]
         unhelpful = cursor.execute(
-            "SELECT COUNT(*) FROM events WHERE event_type = ? AND ts >= ?",
-            (EVENT_FEEDBACK_UNHELPFUL, since),
+            "SELECT COUNT(*) FROM events WHERE event_type = ? AND ts >= ? AND ts < ?",
+            (EVENT_FEEDBACK_UNHELPFUL, start_ts, end_ts),
         ).fetchone()[0]
     finally:
         conn.close()
 
     return {
-        "since": since,
+        "start": start_ts,
+        "end": end_ts,
         "total": total,
         "unique_users": unique_users,
         "by_event": by_event,
@@ -206,6 +208,19 @@ def get_stats(db_path: str, days: int = 7) -> dict:
         "helpful": helpful,
         "unhelpful": unhelpful,
     }
+
+
+def get_stats(db_path: str, days: int = 7) -> dict:
+    end = datetime.now(timezone.utc)
+    start = end - timedelta(days=days)
+    return get_stats_range(db_path, start, end)
+
+
+def format_percent_change(current: int, previous: int, na_value: str) -> str:
+    if previous == 0:
+        return "0%" if current == 0 else na_value
+    change = (current - previous) / previous * 100
+    return f"{change:+.1f}%"
 
 
 configure_logging(LOG_PATH)
@@ -619,8 +634,15 @@ async def main() -> None:
             )
             return
 
-        stats = get_stats(ANALYTICS_DB_PATH, days=7)
+        now = datetime.now(timezone.utc)
+        current_start = now - timedelta(days=7)
+        previous_start = now - timedelta(days=14)
+        stats = get_stats_range(ANALYTICS_DB_PATH, current_start, now)
+        previous_stats = get_stats_range(
+            ANALYTICS_DB_PATH, previous_start, current_start
+        )
         log_message_event(message, EVENT_STATS, data={"days": 7})
+        na_value = stats_localized.messages.get("stats_compare_na", "n/a")
 
         lines = [
             stats_localized.messages["stats_header"],
@@ -649,6 +671,36 @@ async def main() -> None:
             stats_localized.messages["stats_feedback"].format(
                 helpful=stats["helpful"],
                 unhelpful=stats["unhelpful"],
+            )
+        )
+        lines.append("")
+        lines.append(stats_localized.messages["stats_compare_title"])
+        lines.append(
+            stats_localized.messages["stats_compare_total"].format(
+                change=format_percent_change(
+                    stats["total"], previous_stats["total"], na_value
+                )
+            )
+        )
+        lines.append(
+            stats_localized.messages["stats_compare_unique_users"].format(
+                change=format_percent_change(
+                    stats["unique_users"], previous_stats["unique_users"], na_value
+                )
+            )
+        )
+        lines.append(
+            stats_localized.messages["stats_compare_helpful"].format(
+                change=format_percent_change(
+                    stats["helpful"], previous_stats["helpful"], na_value
+                )
+            )
+        )
+        lines.append(
+            stats_localized.messages["stats_compare_unhelpful"].format(
+                change=format_percent_change(
+                    stats["unhelpful"], previous_stats["unhelpful"], na_value
+                )
             )
         )
 

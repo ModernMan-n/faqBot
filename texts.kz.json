@@ -109,6 +109,12 @@
     "stats_top_faq_title": "Топ FAQ:",
     "stats_top_install_title": "Топ орнатулар:",
     "stats_feedback": "Пікірлер: 👍көмектесті {helpful}, 👎көмектеспеді {unhelpful}",
+    "stats_compare_title": "Өткен аптамен салыстыру:",
+    "stats_compare_total": "Оқиғалар: {change}",
+    "stats_compare_unique_users": "Бірегей пайдаланушылар: {change}",
+    "stats_compare_helpful": "👍көмектесті: {change}",
+    "stats_compare_unhelpful": "👎көмектеспеді: {change}",
+    "stats_compare_na": "n/a",
     "unknown_subject": "?"
   }
 }

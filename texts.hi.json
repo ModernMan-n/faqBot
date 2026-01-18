@@ -109,6 +109,12 @@
     "stats_top_faq_title": "शीर्ष FAQ:",
     "stats_top_install_title": "शीर्ष इंस्टॉलेशन:",
     "stats_feedback": "प्रतिक्रियाएँ: 👍मददगार {helpful}, 👎मददगार नहीं {unhelpful}",
+    "stats_compare_title": "पिछले हफ्ते की तुलना:",
+    "stats_compare_total": "घटनाएँ: {change}",
+    "stats_compare_unique_users": "अद्वितीय उपयोगकर्ता: {change}",
+    "stats_compare_helpful": "👍मददगार: {change}",
+    "stats_compare_unhelpful": "👎मददगार नहीं: {change}",
+    "stats_compare_na": "n/a",
     "unknown_subject": "?"
   }
 }

@@ -109,6 +109,12 @@
     "stats_top_faq_title": "Top FAQ:",
     "stats_top_install_title": "Top o'rnatishlar:",
     "stats_feedback": "Fikrlar: 👍yordam berdi {helpful}, 👎yordam bermadi {unhelpful}",
+    "stats_compare_title": "O'tgan hafta bilan o'zgarish:",
+    "stats_compare_total": "Hodisalar: {change}",
+    "stats_compare_unique_users": "No'yob foydalanuvchilar: {change}",
+    "stats_compare_helpful": "👍yordam berdi: {change}",
+    "stats_compare_unhelpful": "👎yordam bermadi: {change}",
+    "stats_compare_na": "n/a",
     "unknown_subject": "?"
   }
 }

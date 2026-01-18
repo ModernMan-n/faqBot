@@ -109,6 +109,12 @@
     "stats_top_faq_title": "Top FAQ:",
     "stats_top_install_title": "Top installations:",
     "stats_feedback": "Feedback: 👍helped {helpful}, 👎didn't help {unhelpful}",
+    "stats_compare_title": "Change vs previous week:",
+    "stats_compare_total": "Events: {change}",
+    "stats_compare_unique_users": "Unique users: {change}",
+    "stats_compare_helpful": "👍helped: {change}",
+    "stats_compare_unhelpful": "👎didn't help: {change}",
+    "stats_compare_na": "n/a",
     "unknown_subject": "?"
   }
 }

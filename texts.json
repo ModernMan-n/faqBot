@@ -109,6 +109,12 @@
     "stats_top_faq_title": "Топ FAQ:",
     "stats_top_install_title": "Топ установки:",
     "stats_feedback": "Отзывы: 👍помогло {helpful}, 👎не помогло {unhelpful}",
+    "stats_compare_title": "Изменение к прошлой неделе:",
+    "stats_compare_total": "События: {change}",
+    "stats_compare_unique_users": "Уникальные пользователи: {change}",
+    "stats_compare_helpful": "👍помогло: {change}",
+    "stats_compare_unhelpful": "👎не помогло: {change}",
+    "stats_compare_na": "н/д",
     "unknown_subject": "?"
   }
 }

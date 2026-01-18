@@ -109,6 +109,12 @@
     "stats_top_faq_title": "Top FAQ:",
     "stats_top_install_title": "Top quraşdırmalar:",
     "stats_feedback": "Rəylər: 👍kömək etdi {helpful}, 👎kömək etmədi {unhelpful}",
+    "stats_compare_title": "Ötən həftə ilə dəyişiklik:",
+    "stats_compare_total": "Hadisələr: {change}",
+    "stats_compare_unique_users": "Unikal istifadəçilər: {change}",
+    "stats_compare_helpful": "👍kömək etdi: {change}",
+    "stats_compare_unhelpful": "👎kömək etmədi: {change}",
+    "stats_compare_na": "n/a",
     "unknown_subject": "?"
   }
 }
